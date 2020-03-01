@@ -1,0 +1,594 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A1034D4240C66F500E70193 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1034D3240C66F500E70193 /* AppDelegate.swift */; };
+		1A1034D6240C66F500E70193 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1034D5240C66F500E70193 /* ContentView.swift */; };
+		1A1034D8240C66F800E70193 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A1034D7240C66F800E70193 /* Assets.xcassets */; };
+		1A1034DB240C66F800E70193 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A1034DA240C66F800E70193 /* Preview Assets.xcassets */; };
+		1A1034DE240C66F800E70193 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A1034DC240C66F800E70193 /* Main.storyboard */; };
+		1A1034EA240C66F800E70193 /* webpicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1034E9240C66F800E70193 /* webpicTests.swift */; };
+		1A1034F5240C66F800E70193 /* webpicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1034F4240C66F800E70193 /* webpicUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1A1034E6240C66F800E70193 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A1034C8240C66F500E70193 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A1034CF240C66F500E70193;
+			remoteInfo = webpic;
+		};
+		1A1034F1240C66F800E70193 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A1034C8240C66F500E70193 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A1034CF240C66F500E70193;
+			remoteInfo = webpic;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1A1034D0240C66F500E70193 /* webpic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = webpic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A1034D3240C66F500E70193 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1A1034D5240C66F500E70193 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1A1034D7240C66F800E70193 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1A1034DA240C66F800E70193 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1A1034DD240C66F800E70193 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1A1034DF240C66F800E70193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A1034E0240C66F800E70193 /* webpic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = webpic.entitlements; sourceTree = "<group>"; };
+		1A1034E5240C66F800E70193 /* webpicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = webpicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A1034E9240C66F800E70193 /* webpicTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = webpicTests.swift; sourceTree = "<group>"; };
+		1A1034EB240C66F800E70193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A1034F0240C66F800E70193 /* webpicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = webpicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A1034F4240C66F800E70193 /* webpicUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = webpicUITests.swift; sourceTree = "<group>"; };
+		1A1034F6240C66F800E70193 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1A1034CD240C66F500E70193 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A1034E2240C66F800E70193 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A1034ED240C66F800E70193 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1A1034C7240C66F500E70193 = {
+			isa = PBXGroup;
+			children = (
+				1A1034D2240C66F500E70193 /* webpic */,
+				1A1034E8240C66F800E70193 /* webpicTests */,
+				1A1034F3240C66F800E70193 /* webpicUITests */,
+				1A1034D1240C66F500E70193 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1A1034D1240C66F500E70193 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1A1034D0240C66F500E70193 /* webpic.app */,
+				1A1034E5240C66F800E70193 /* webpicTests.xctest */,
+				1A1034F0240C66F800E70193 /* webpicUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1A1034D2240C66F500E70193 /* webpic */ = {
+			isa = PBXGroup;
+			children = (
+				1A1034D3240C66F500E70193 /* AppDelegate.swift */,
+				1A1034D5240C66F500E70193 /* ContentView.swift */,
+				1A1034D7240C66F800E70193 /* Assets.xcassets */,
+				1A1034DC240C66F800E70193 /* Main.storyboard */,
+				1A1034DF240C66F800E70193 /* Info.plist */,
+				1A1034E0240C66F800E70193 /* webpic.entitlements */,
+				1A1034D9240C66F800E70193 /* Preview Content */,
+			);
+			path = webpic;
+			sourceTree = "<group>";
+		};
+		1A1034D9240C66F800E70193 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				1A1034DA240C66F800E70193 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1A1034E8240C66F800E70193 /* webpicTests */ = {
+			isa = PBXGroup;
+			children = (
+				1A1034E9240C66F800E70193 /* webpicTests.swift */,
+				1A1034EB240C66F800E70193 /* Info.plist */,
+			);
+			path = webpicTests;
+			sourceTree = "<group>";
+		};
+		1A1034F3240C66F800E70193 /* webpicUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1A1034F4240C66F800E70193 /* webpicUITests.swift */,
+				1A1034F6240C66F800E70193 /* Info.plist */,
+			);
+			path = webpicUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1A1034CF240C66F500E70193 /* webpic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A1034F9240C66F800E70193 /* Build configuration list for PBXNativeTarget "webpic" */;
+			buildPhases = (
+				1A1034CC240C66F500E70193 /* Sources */,
+				1A1034CD240C66F500E70193 /* Frameworks */,
+				1A1034CE240C66F500E70193 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = webpic;
+			productName = webpic;
+			productReference = 1A1034D0240C66F500E70193 /* webpic.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1A1034E4240C66F800E70193 /* webpicTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A1034FC240C66F800E70193 /* Build configuration list for PBXNativeTarget "webpicTests" */;
+			buildPhases = (
+				1A1034E1240C66F800E70193 /* Sources */,
+				1A1034E2240C66F800E70193 /* Frameworks */,
+				1A1034E3240C66F800E70193 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A1034E7240C66F800E70193 /* PBXTargetDependency */,
+			);
+			name = webpicTests;
+			productName = webpicTests;
+			productReference = 1A1034E5240C66F800E70193 /* webpicTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1A1034EF240C66F800E70193 /* webpicUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A1034FF240C66F800E70193 /* Build configuration list for PBXNativeTarget "webpicUITests" */;
+			buildPhases = (
+				1A1034EC240C66F800E70193 /* Sources */,
+				1A1034ED240C66F800E70193 /* Frameworks */,
+				1A1034EE240C66F800E70193 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A1034F2240C66F800E70193 /* PBXTargetDependency */,
+			);
+			name = webpicUITests;
+			productName = webpicUITests;
+			productReference = 1A1034F0240C66F800E70193 /* webpicUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1A1034C8240C66F500E70193 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "James Little";
+				TargetAttributes = {
+					1A1034CF240C66F500E70193 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					1A1034E4240C66F800E70193 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 1A1034CF240C66F500E70193;
+					};
+					1A1034EF240C66F800E70193 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 1A1034CF240C66F500E70193;
+					};
+				};
+			};
+			buildConfigurationList = 1A1034CB240C66F500E70193 /* Build configuration list for PBXProject "webpic" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1A1034C7240C66F500E70193;
+			productRefGroup = 1A1034D1240C66F500E70193 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1A1034CF240C66F500E70193 /* webpic */,
+				1A1034E4240C66F800E70193 /* webpicTests */,
+				1A1034EF240C66F800E70193 /* webpicUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1A1034CE240C66F500E70193 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1034DE240C66F800E70193 /* Main.storyboard in Resources */,
+				1A1034DB240C66F800E70193 /* Preview Assets.xcassets in Resources */,
+				1A1034D8240C66F800E70193 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A1034E3240C66F800E70193 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A1034EE240C66F800E70193 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1A1034CC240C66F500E70193 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1034D6240C66F500E70193 /* ContentView.swift in Sources */,
+				1A1034D4240C66F500E70193 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A1034E1240C66F800E70193 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1034EA240C66F800E70193 /* webpicTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A1034EC240C66F800E70193 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1034F5240C66F800E70193 /* webpicUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1A1034E7240C66F800E70193 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A1034CF240C66F500E70193 /* webpic */;
+			targetProxy = 1A1034E6240C66F800E70193 /* PBXContainerItemProxy */;
+		};
+		1A1034F2240C66F800E70193 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A1034CF240C66F500E70193 /* webpic */;
+			targetProxy = 1A1034F1240C66F800E70193 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1A1034DC240C66F800E70193 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1A1034DD240C66F800E70193 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1A1034F7240C66F800E70193 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1A1034F8240C66F800E70193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		1A1034FA240C66F800E70193 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = webpic/webpic.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"webpic/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = webpic/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = me.jameslittle.webpic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1A1034FB240C66F800E70193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = webpic/webpic.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"webpic/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = webpic/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = me.jameslittle.webpic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		1A1034FD240C66F800E70193 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = webpicTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = me.jameslittle.webpicTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/webpic.app/Contents/MacOS/webpic";
+			};
+			name = Debug;
+		};
+		1A1034FE240C66F800E70193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = webpicTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = me.jameslittle.webpicTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/webpic.app/Contents/MacOS/webpic";
+			};
+			name = Release;
+		};
+		1A103500240C66F800E70193 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = webpicUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.jameslittle.webpicUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = webpic;
+			};
+			name = Debug;
+		};
+		1A103501240C66F800E70193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = webpicUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = me.jameslittle.webpicUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = webpic;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1A1034CB240C66F500E70193 /* Build configuration list for PBXProject "webpic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A1034F7240C66F800E70193 /* Debug */,
+				1A1034F8240C66F800E70193 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A1034F9240C66F800E70193 /* Build configuration list for PBXNativeTarget "webpic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A1034FA240C66F800E70193 /* Debug */,
+				1A1034FB240C66F800E70193 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A1034FC240C66F800E70193 /* Build configuration list for PBXNativeTarget "webpicTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A1034FD240C66F800E70193 /* Debug */,
+				1A1034FE240C66F800E70193 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A1034FF240C66F800E70193 /* Build configuration list for PBXNativeTarget "webpicUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A103500240C66F800E70193 /* Debug */,
+				1A103501240C66F800E70193 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1A1034C8240C66F500E70193 /* Project object */;
+}
