@@ -1,22 +1,12 @@
 //
-//  Float+Clamp.swift
+//  UInt64+FormatBytes.swift
 //  webpic
 //
-//  Created by James Little on 3/1/20.
+//  Created by James Little on 3/7/20.
 //  Copyright © 2020 James Little. All rights reserved.
 //
 
 import Foundation
-
-extension Float {
-    func clamp(min minVal: Float, max maxVal: Float) -> Float {
-        guard minVal < maxVal else {
-            fatalError("Min clamp value must be less than max clamp value")
-        }
-        
-        return max(min(maxVal, self), minVal)
-    }
-}
 
 extension UInt64 {
     public var kilobytes: Double {

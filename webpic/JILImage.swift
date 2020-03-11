@@ -9,12 +9,12 @@
 import Foundation
 import AppKit
 
-struct JILImage: Identifiable {
+final class JILImage: Identifiable, ObservableObject {
     var id: String {
         return self.name
     }
     
-    enum JILImageState {
+    enum JILImageState: CaseIterable {
         case unuploaded
         case uploaded
         case uploading
@@ -26,7 +26,7 @@ struct JILImage: Identifiable {
     let width: Int
     let filesize: UInt64
     var thumbnail: NSImage? = nil
-    let state: JILImageState
+    @Published var state: JILImageState
     
     init(name: String, height: Int, width: Int, state: JILImageState) {
         self.name = name
@@ -46,12 +46,7 @@ struct JILImage: Identifiable {
             return nil
         }
         
-        self.thumbnail = NSImage(size: NSSize(width: 50, height: 50))
-        let originalSize = image.size
-        let fromRect = NSRect(x: 0, y: 0, width: originalSize.width, height: originalSize.height)
-        self.thumbnail?.lockFocus()
-        image.draw(in: NSRect(x: 0, y: 0, width: 50, height: 50), from: fromRect, operation: .copy, fraction: 1.0)
-        self.thumbnail?.unlockFocus()
+        self.thumbnail = image.generateThumbnail(contentMode: .aspectFill, width: 50)
         
         self.height = Int(image.size.height)
         self.width = Int(image.size.width)
@@ -63,4 +58,17 @@ struct JILImage: Identifiable {
             self.filesize = 0
         }
     }
+}
+
+protocol FakeData {
+    static func generate() -> Self
+}
+    
+
+extension JILImage: FakeData {
+    static func generate() -> JILImage {
+        return JILImage(name: "asdf.jpg", height: 250, width: 380, state: JILImageState.allCases.randomElement()!)
+    }
+    
+    
 }

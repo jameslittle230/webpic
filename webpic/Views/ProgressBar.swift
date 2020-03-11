@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct ProgressBar: View {
-    var progress: Float
+    var progress: Double
     var height: CGFloat = 12
     
-    var computedProgress: Float {
+    var computedProgress: Double {
         return progress.clamp(min: 0.0, max: 1.0)
     }
     
@@ -21,7 +21,8 @@ struct ProgressBar: View {
             ZStack {
                 Capsule().frame(height: self.height)
                 Capsule().fill(Color.accentColor)
-                    .transformEffect(CGAffineTransform(translationX: geometry.size.width * -1.0 * CGFloat(self.progress), y: 0))
+                    .transformEffect(CGAffineTransform(translationX: geometry.size.width * -1.0 * (1 - CGFloat(self.progress)), y: 0))
+                    .animation(.easeInOut) // not working?
                     .frame(height: self.height)
                 }.clipShape(Capsule())
         }.frame(height: height)

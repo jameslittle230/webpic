@@ -10,10 +10,10 @@ import SwiftUI
 
 struct CTAButton: View {
     let scrim = Gradient(stops: [
-        Gradient.Stop.init(color: Color.white.opacity(0.30), location: 0.0),
-        Gradient.Stop.init(color: Color.white.opacity(0.25), location: 0.1),
-        Gradient.Stop.init(color: Color.white.opacity(0.20), location: 0.3),
-        Gradient.Stop.init(color: Color.white.opacity(0.25), location: 1.0),
+        Gradient.Stop.init(color: Color("ButtonScrimColor").opacity(0.80), location: 0.0),
+        Gradient.Stop.init(color: Color("ButtonScrimColor").opacity(0.65), location: 0.1),
+        Gradient.Stop.init(color: Color("ButtonScrimColor").opacity(0.60), location: 0.3),
+        Gradient.Stop.init(color: Color("ButtonScrimColor").opacity(0.65), location: 1.0),
     ])
     
     @State private var hovered = false
@@ -26,12 +26,10 @@ struct CTAButton: View {
             Spacer()
         }
         .background(LinearGradient(gradient: scrim, startPoint: .top, endPoint: .bottom))
-        .background(hovered ? Color.accentColor : Color(NSColor.windowBackgroundColor))
+//        .background(hovered ? Color.accentColor : Color(NSColor.windowBackgroundColor))
         .clipShape(RoundedRectangle(cornerRadius: 5))
-        .overlay(
-            RoundedRectangle(cornerRadius: 5)
-                .stroke(Color.black, lineWidth: 0.5)
-        )
+        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(NSColor.tertiaryLabelColor), lineWidth: 0.5))
+        .shadow(color: Color.black.opacity(0.2), radius: 0.4, x: 0, y: 0.6)
         .onHover() { mouseover in
             self.hovered = mouseover
         }
@@ -41,8 +39,19 @@ struct CTAButton: View {
 struct CTAButton_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            CTAButton(text: "Buy Now").environment(\.colorScheme, .dark).padding()
-            CTAButton(text: "Buy Now").environment(\.colorScheme, .light).padding()
+            HStack(spacing: 8.0) {
+                CTAButton(text: "Buy Now")
+                Button(action: {}) {
+                    Text("Buy now")
+                }
+            }.padding().background(Color(NSColor.windowBackgroundColor)).environment(\.colorScheme, .light)
+                
+            HStack(spacing: 8.0) {
+                CTAButton(text: "Buy Now")
+                Button(action: {}) {
+                    Text("Buy now")
+                }
+            }.environment(\.colorScheme, .dark).padding()
         }
     }
 }

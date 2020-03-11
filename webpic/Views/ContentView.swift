@@ -15,21 +15,33 @@ struct ContentView: View {
     
     
     var body: some View {
-        let sidebarDropDelegate = SidebarDropDelegate(images: $images, active: $dropActive)
+        let sidebarDropDelegate = SidebarDropDelegate(
+            images: $images,
+            active: $dropActive,
+            selectedView: $selectedView
+        )
+        
+        let detailDropDelegate = SidebarDropDelegate(
+            images: $images,
+            active: $dropActive,
+            selectedView: $selectedView
+        )
+        
         return NavigationView() {
             VStack {
                 List(images) { image in
-                    NavigationLink(destination: NavigationDetail(model: image),
+                    NavigationLink(destination: NavigationDetail(model: image).onDrop(of: detailDropDelegate.allowedUTIs, delegate: detailDropDelegate),
                                    tag: image.name,
                                    selection: self.$selectedView) {
                         NavigationRow(model: image)
                     }
-                }.listStyle(SidebarListStyle()).frame(minWidth: 220)
+                }.listStyle(SidebarListStyle()).frame(minWidth: 320)
                 Spacer()
                 PostListActions()
-            }.onDrop(of: ["public.file-url"], delegate: sidebarDropDelegate)
-                .background(dropActive ? Color.blue : nil)
-            WelcomeView()
+            }
+                .onDrop(of: sidebarDropDelegate.allowedUTIs, delegate: sidebarDropDelegate)
+                .background(self.dropActive ? DropGradientBackground() : nil)
+            WelcomeView().onDrop(of: detailDropDelegate.allowedUTIs, delegate: detailDropDelegate)
         }.navigationViewStyle(DoubleColumnNavigationViewStyle())
             .onAppear() {
                  
@@ -57,7 +69,7 @@ struct PostListActions: View {
     var body: some View {
         HStack {
             Button(action: {}) {
-                Text("Clear")
+                Text("Clear Completed")
             }
             Button(action: {}) {
                 Text("Bulk Process")
@@ -86,12 +98,12 @@ struct HelpButton: View, NSViewRepresentable {
 struct WelcomeView: View {
     var body: some View {
         Group {
-            VStack(alignment: .leading, spacing: 24.0) {
+            VStack(spacing: 24.0) {
                 Text("Welcome to Webpic.").font(.largeTitle).bold()
-                Text("Automatically convert images to WebP and Progressive JPEGs. Upload them to your server. Get the HTML to properly display them.")
                     .font(.subheadline)
                 Text("Drag and drop an image here to get started.")
                     .font(.subheadline)
+                
             }.frame(width: 330)
         }.frame(minWidth: 600, maxWidth: 10000, minHeight: 500, maxHeight: 10000)
     }
@@ -100,9 +112,12 @@ struct WelcomeView: View {
 struct SidebarDropDelegate: DropDelegate {
     @Binding var images: [JILImage]
     @Binding var active: Bool
+    @Binding var selectedView: String?
+    
+    let allowedUTIs = ["public.image", "public.file-url", "public.directory"]
     
     func validateDrop(info: DropInfo) -> Bool {
-        return info.hasItemsConforming(to: ["public.file-url"])
+        return info.hasItemsConforming(to: allowedUTIs)
     }
     
     func dropEntered(info: DropInfo) {
@@ -113,17 +128,17 @@ struct SidebarDropDelegate: DropDelegate {
         
         self.active = true
         
-        if let item = info.itemProviders(for: ["public.file-url"]).first {
+        if let item = info.itemProviders(for: allowedUTIs).first {
             item.loadItem(forTypeIdentifier: "public.file-url", options: nil) { (urlData, error) in
                 DispatchQueue.main.async {
                     guard let urlData = urlData as? Data else {
-                        print(error)
+                        print(error!)
                         return
                     }
                     
                     let url = NSURL(dataRepresentation: urlData, relativeTo: nil)
                     guard let image = JILImage(fromUrl: url) else {
-                        print("Internal error")
+                        print("Can't generate JILImage from file URL")
                         return
                     }
                     
@@ -134,6 +149,7 @@ struct SidebarDropDelegate: DropDelegate {
             return true
             
         } else {
+            print("Invalid UTI")
             return false
         }
 
@@ -141,11 +157,22 @@ struct SidebarDropDelegate: DropDelegate {
     
     func dropUpdated(info: DropInfo) -> DropProposal? {
         self.active = true
-                    
         return nil
     }
     
     func dropExited(info: DropInfo) {
         self.active = false
+    }
+}
+
+struct DropGradientBackground: View {
+    var body: some View {
+        GeometryReader { geometry in
+            RadialGradient(
+                gradient: Gradient(colors: [Color.accentColor.opacity(0.8), Color.accentColor.opacity(0.1)]),
+                center: UnitPoint(x: 0.5, y: 0.5),
+                startRadius: 1,
+                endRadius: max(geometry.size.width, geometry.size.height))
+        }
     }
 }
