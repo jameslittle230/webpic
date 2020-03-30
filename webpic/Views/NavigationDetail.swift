@@ -36,16 +36,25 @@ struct NavigationDetail: View {
                     output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("out.webp"),
                     progressDelegate: Optional.some(self.webPProgressDelegate)
                     )?.run() {
+                        print("cwebp done")
                         DispatchQueue.main.asyncAfter(wallDeadline: .now() + 1) {
                             self.model.state = .uploaded
                         }
                 }
+                
+//                _ = JPEGTranProcess(
+//                    input: self.model.url.filePathURL!,
+//                    output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("out.jpeg"),
+//                    progressDelegate: nil
+//                    )?.run() {
+//                        print("JPEGTran Done")
+//                }
             }) {
                 CTAButton(text: model.state == .uploaded ? "Process Again" : "Process")
             }.buttonStyle(PlainButtonStyle())
             
             GeometryReader { geometry in
-            
+                
                 HStack(alignment: .top, spacing: 18) {
                     ImagePreview(image: Image(nsImage: NSImage(contentsOf: self.model.url as URL)!))
                     ImageOptions(model: self.model).frame(width: 300)
@@ -73,13 +82,13 @@ struct NavigationDetail_Previews: PreviewProvider {
 
 struct ImageOptions: View {
     
-//    init(model: JILImage) {
-//        print("asdf")
-//        self.model = model
-//        self.outputFilename = model.name
-//        self.outputWidth = "\(model.width)"
-//        self.outputHeight = "\(model.height)"
-//    }
+    //    init(model: JILImage) {
+    //        print("asdf")
+    //        self.model = model
+    //        self.outputFilename = model.name
+    //        self.outputWidth = "\(model.width)"
+    //        self.outputHeight = "\(model.height)"
+    //    }
     
     enum LastEditedImageDimension {
         case none
@@ -140,7 +149,7 @@ struct ImageOptions: View {
                             if focusApplied {
                                 self.lastEditedImageDimension = .width
                             }
-                        }
+                    }
                     Text("x")
                     TextField("asdf", text: $outputHeight)
                         .border(Color.accentColor, width: lastEditedImageDimension == .height ? 1 : 4)
@@ -149,7 +158,7 @@ struct ImageOptions: View {
                             if focusApplied {
                                 self.lastEditedImageDimension = .height
                             }
-                        }
+                    }
                 }
             }
         }

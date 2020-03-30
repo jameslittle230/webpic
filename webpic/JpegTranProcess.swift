@@ -1,21 +1,15 @@
 //
-//  WebPProcess.swift
+//  JPEGTranProcess.swift
 //  webpic
 //
-//  Created by James Little on 3/10/20.
+//  Created by James Little on 3/29/20.
 //  Copyright © 2020 James Little. All rights reserved.
 //
 
 import AppKit
 
-protocol JILProcess {
-    var executableURL: URL { get }
-    init?(input: URL, output: URL, progressDelegate: ProgressDelegate?)
-    func run(_ completion: @escaping () -> Void)
-}
-
-class WebPProcess: JILProcess {
-    let executableURL = URL(fileURLWithPath: "Contents/Resources/lib/cwebp", isDirectory: false, relativeTo:  NSRunningApplication.current.bundleURL)
+class JPEGTranProcess: JILProcess {
+    let executableURL = URL(fileURLWithPath: "Contents/Resources/lib/jpegtran", isDirectory: false, relativeTo:  NSRunningApplication.current.bundleURL)
     let p = Process()
     
     let input: URL
@@ -30,7 +24,7 @@ class WebPProcess: JILProcess {
         }
     
         p.executableURL = executableURL
-        p.arguments = ["-preset", "picture", "-progress", inputFilePathURL.path, "-o", "-"]
+        p.arguments = ["-progressive", "-verbose", "optimize", inputFilePathURL.path]
         
         self.input = input
         self.output = output
@@ -58,7 +52,6 @@ class WebPProcess: JILProcess {
                     if(data.count > 0) {
                         print(String(data: data, encoding: .utf8)!)
                     }
-                    self.processIncomingStandardErrorData(data)
                 }
                 
                 self.p.waitUntilExit()
@@ -75,44 +68,24 @@ class WebPProcess: JILProcess {
         }
     }
     
-    func processIncomingStandardErrorData(_ data: Data) {
-        if let string = String(data: data, encoding: String.Encoding.utf8) {
-            let lines = string.split(separator: "\n")
-            
-            for line in lines {
-                let words = line.split(separator: " ")
-                
-                guard words.count > 3,
-                    let intValue = Int(words[words.count - 3]),
-                    intValue <= 100,
-                    intValue >= 0 else {
-                        break
-                }
-                
-                DispatchQueue.main.sync {
-                    progressDelegate?.notifyWithProgress(Double(intValue) / 100.0)
-                }
-            }
-        }
-    }
-}
-
-protocol ProgressDelegate {
-    var progress: Double { get set }
-    func notifyWithProgress(_ progress: Double)
-    func complete()
-}
-
-class PrintingProgressDelegate: ProgressDelegate {
-    var progress: Double = 0.0
-    
-    func complete() {
-        self.progress = 1.0
-        print("Complete!")
-    }
-    
-    func notifyWithProgress(_ progress: Double) {
-        self.progress = progress
-        print("Progress: \(progress)")
-    }
+//    func processIncomingStandardErrorData(_ data: Data) {
+//        if let string = String(data: data, encoding: String.Encoding.utf8) {
+//            let lines = string.split(separator: "\n")
+//
+//            for line in lines {
+//                let words = line.split(separator: " ")
+//
+//                guard words.count > 3,
+//                    let intValue = Int(words[words.count - 3]),
+//                    intValue <= 100,
+//                    intValue >= 0 else {
+//                        break
+//                }
+//
+//                DispatchQueue.main.sync {
+//                    progressDelegate?.notifyWithProgress(Double(intValue) / 100.0)
+//                }
+//            }
+//        }
+//    }
 }
