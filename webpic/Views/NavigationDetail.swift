@@ -21,8 +21,6 @@ class WebPProgressDelegate: ProgressDelegate, ObservableObject {
 }
 
 struct NavigationDetail: View {
-    let pipe = Pipe()
-    
     @ObservedObject var model: JILImage
     @ObservedObject var webPProgressDelegate: WebPProgressDelegate = WebPProgressDelegate()
     
@@ -33,7 +31,7 @@ struct NavigationDetail: View {
                 
                 _ = WebPProcess(
                     input: self.model.url.filePathURL!,
-                    output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("out.webp"),
+                    output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("out2.webp"),
                     progressDelegate: Optional.some(self.webPProgressDelegate)
                     )?.run() {
                         print("cwebp done")
@@ -42,13 +40,13 @@ struct NavigationDetail: View {
                         }
                 }
                 
-//                _ = JPEGTranProcess(
-//                    input: self.model.url.filePathURL!,
-//                    output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("out.jpeg"),
-//                    progressDelegate: nil
-//                    )?.run() {
-//                        print("JPEGTran Done")
-//                }
+                _ = JPEGTranProcess(
+                    input: self.model.url.filePathURL!,
+                    output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("out2.jpeg"),
+                    progressDelegate: nil
+                    )?.run() {
+                        print("JPEGTran Done")
+                }
             }) {
                 CTAButton(text: model.state == .uploaded ? "Process Again" : "Process")
             }.buttonStyle(PlainButtonStyle())
@@ -57,7 +55,7 @@ struct NavigationDetail: View {
                 
                 HStack(alignment: .top, spacing: 18) {
                     ImagePreview(image: Image(nsImage: NSImage(contentsOf: self.model.url as URL)!))
-                    ImageOptions(model: self.model).frame(width: 300)
+                    ImageOptions(model: self.model, viewModel: ImageOptionsViewModel(model: self.model)).frame(width: 300)
                 }
             }
             
@@ -80,15 +78,18 @@ struct NavigationDetail_Previews: PreviewProvider {
     }
 }
 
-struct ImageOptions: View {
+class ImageOptionsViewModel: ObservableObject {
+    let model: JILImage
     
-    //    init(model: JILImage) {
-    //        print("asdf")
-    //        self.model = model
-    //        self.outputFilename = model.name
-    //        self.outputWidth = "\(model.width)"
-    //        self.outputHeight = "\(model.height)"
-    //    }
+    init(model: JILImage) {
+        self.model = model
+        self.tempWidth = model.width
+        self.tempHeight = model.height
+        
+        var fileNameComponents = model.name.split(separator: ".")
+        _ = fileNameComponents.popLast()
+        outputFilename = fileNameComponents.joined(separator: ".")
+    }
     
     enum LastEditedImageDimension {
         case none
@@ -96,16 +97,44 @@ struct ImageOptions: View {
         case height
     }
     
-    @State private var lastEditedImageDimension = LastEditedImageDimension.none
-    @State private var outputFilename = ""
-    @State private var outputWidth = ""
-    @State private var outputHeight = ""
-    @State private var convertToWebP = true
-    @State private var convertToPJpeg = true
-    @State private var uploadToServer = true
-    @State private var saveToDisk = true
+    var tempWidth: Int
+    var tempHeight: Int
     
-    var model: JILImage
+    var outputWidth: String {
+        get {
+            return String(tempWidth)
+        }
+        
+        set {
+            lastEditedImageDimension = .width
+            tempWidth = Int(newValue) ?? 0
+            tempHeight = Int(Double(tempWidth) / model.aspectRatio)
+        }
+    }
+    
+    var outputHeight: String {
+        get {
+            return String(tempHeight)
+        }
+        
+        set {
+            lastEditedImageDimension = .height
+            tempHeight = Int(newValue) ?? 0
+            tempWidth = Int(Double(tempHeight) * model.aspectRatio)
+        }
+    }
+    
+    @Published var lastEditedImageDimension = LastEditedImageDimension.none
+    @Published var outputFilename = ""
+    @Published var convertToWebP = true
+    @Published var convertToPJpeg = true
+    @Published var uploadToServer = false
+    @Published var saveToDisk = true
+}
+
+struct ImageOptions: View {
+    @ObservedObject var model: JILImage
+    @ObservedObject var viewModel: ImageOptionsViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -122,43 +151,33 @@ struct ImageOptions: View {
             Spacer().frame(height: 18.0)
             
             Group {
-                Toggle(isOn: $convertToWebP) {
+                Toggle(isOn: $viewModel.convertToWebP) {
                     Text("Convert to WebP")
                 }
-                Toggle(isOn: $convertToPJpeg) {
+                Toggle(isOn: $viewModel.convertToPJpeg) {
                     Text("Convert to Progressive JPEG")
                 }
-                Toggle(isOn: $uploadToServer) {
+                Toggle(isOn: $viewModel.uploadToServer) {
                     Text("Upload to Server")
                 }
-                Toggle(isOn: $saveToDisk) {
+                Toggle(isOn: $viewModel.saveToDisk) {
                     Text("Save to Disk")
                 }
                 Spacer().frame(height: 36.0)
                 HStack {
                     Text("Output Filename")
-                    TextField("asdf", text: $outputFilename)
+                    TextField("asdf", text: $viewModel.outputFilename)
                 }
                 
                 HStack {
                     Text("Output Size")
-                    TextField("asdf", text: $outputWidth)
-                        .border(Color.accentColor, width: lastEditedImageDimension == .width ? 1 : 0)
-                        .focusable(true) { focusApplied in
-                            print(95, focusApplied)
-                            if focusApplied {
-                                self.lastEditedImageDimension = .width
-                            }
-                    }
-                    Text("x")
-                    TextField("asdf", text: $outputHeight)
-                        .border(Color.accentColor, width: lastEditedImageDimension == .height ? 1 : 4)
-                        .focusable(true) { focusApplied in
-                            print(103, focusApplied)
-                            if focusApplied {
-                                self.lastEditedImageDimension = .height
-                            }
-                    }
+                    TextField(viewModel.outputWidth, text: $viewModel.outputWidth)
+                        .focusable(true)
+                        .border(Color.accentColor, width: viewModel.lastEditedImageDimension == .width ? 1 : 0)
+                    Text("×")
+                    TextField(viewModel.outputHeight, text: $viewModel.outputHeight)
+                        .border(Color.accentColor, width: viewModel.lastEditedImageDimension == .height ? 1 : 0)
+                        .focusable(true)
                 }
             }
         }

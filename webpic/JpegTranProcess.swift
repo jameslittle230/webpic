@@ -24,7 +24,7 @@ class JPEGTranProcess: JILProcess {
         }
     
         p.executableURL = executableURL
-        p.arguments = ["-progressive", "-verbose", "optimize", inputFilePathURL.path]
+        p.arguments = ["-progressive", "-verbose", "-optimize", inputFilePathURL.path]
         
         self.input = input
         self.output = output
@@ -48,10 +48,7 @@ class JPEGTranProcess: JILProcess {
                 try self.p.run()
                 
                 self.standardErrorPipe.fileHandleForReading.readabilityHandler = { fileHandle in
-                    let data = fileHandle.availableData
-                    if(data.count > 0) {
-                        print(String(data: data, encoding: .utf8)!)
-                    }
+                    let _ = fileHandle.availableData // Not doing anything with this now, but maybe later?
                 }
                 
                 self.p.waitUntilExit()

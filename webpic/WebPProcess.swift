@@ -55,9 +55,6 @@ class WebPProcess: JILProcess {
                 
                 self.standardErrorPipe.fileHandleForReading.readabilityHandler = { fileHandle in
                     let data = fileHandle.availableData
-                    if(data.count > 0) {
-                        print(String(data: data, encoding: .utf8)!)
-                    }
                     self.processIncomingStandardErrorData(data)
                 }
                 

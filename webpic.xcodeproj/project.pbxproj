@@ -22,6 +22,11 @@
 		1A10350E240CCBE100E70193 /* JILImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A10350D240CCBE100E70193 /* JILImage.swift */; };
 		1A680064243116A5002BCF87 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 1A680063243116A5002BCF87 /* lib */; };
 		1A6800662431172A002BCF87 /* JpegTranProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6800652431172A002BCF87 /* JpegTranProcess.swift */; };
+		1A6800AB2431AEAE002BCF87 /* libjpeg.9.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1A6800AA2431AEAE002BCF87 /* libjpeg.9.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1A6800AD2431AEB2002BCF87 /* libpng16.16.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1A6800AC2431AEB2002BCF87 /* libpng16.16.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1A6800B12431AEB7002BCF87 /* libtiff.5.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1A6800B02431AEB7002BCF87 /* libtiff.5.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1A6800B32431AEBD002BCF87 /* libwebp.7.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1A6800B22431AEBD002BCF87 /* libwebp.7.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1A6800B52431AEC0002BCF87 /* libwebpdemux.2.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1A6800B42431AEC0002BCF87 /* libwebpdemux.2.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1A7A6D9524148F43003CB7FB /* NSImage+GenerateThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7A6D9424148F43003CB7FB /* NSImage+GenerateThumbnail.swift */; };
 		1A7A6D9724148F5B003CB7FB /* UInt64+FormatBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7A6D9624148F5B003CB7FB /* UInt64+FormatBytes.swift */; };
 		1A7A6D9C2418977D003CB7FB /* WebPProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7A6D9B2418977D003CB7FB /* WebPProcess.swift */; };
@@ -43,6 +48,23 @@
 			remoteInfo = webpic;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1A68008524318EB8002BCF87 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1A6800AB2431AEAE002BCF87 /* libjpeg.9.dylib in CopyFiles */,
+				1A6800AD2431AEB2002BCF87 /* libpng16.16.dylib in CopyFiles */,
+				1A6800B12431AEB7002BCF87 /* libtiff.5.dylib in CopyFiles */,
+				1A6800B32431AEBD002BCF87 /* libwebp.7.dylib in CopyFiles */,
+				1A6800B52431AEC0002BCF87 /* libwebpdemux.2.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1A1034D0240C66F500E70193 /* webpic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = webpic.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +92,17 @@
 		1A68006824312084002BCF87 /* libwebpdemux.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwebpdemux.2.dylib; path = "../../Library/Developer/Xcode/DerivedData/webpic-gftsfyfgnnsdfbcikkpzqvxhkiio/Build/Products/Debug/webpic.app/Contents/Resources/lib/libwebpdemux.2.dylib"; sourceTree = "<group>"; };
 		1A68006C243120DA002BCF87 /* cwebp */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = cwebp; path = "../../Library/Developer/Xcode/DerivedData/webpic-gftsfyfgnnsdfbcikkpzqvxhkiio/Build/Products/Debug/webpic.app/Contents/Resources/lib/cwebp"; sourceTree = "<group>"; };
 		1A680070243121B6002BCF87 /* libwebpdemux.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwebpdemux.2.dylib; path = webpic/lib/libwebpdemux.2.dylib; sourceTree = "<group>"; };
+		1A68007624318E85002BCF87 /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = "../../Library/Developer/Xcode/DerivedData/webpic-gftsfyfgnnsdfbcikkpzqvxhkiio/Build/Products/Debug/webpic.app/Contents/Resources/lib/libpng16.16.dylib"; sourceTree = "<group>"; };
+		1A68007724318E85002BCF87 /* libjpeg.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.9.dylib; path = "../../Library/Developer/Xcode/DerivedData/webpic-gftsfyfgnnsdfbcikkpzqvxhkiio/Build/Products/Debug/webpic.app/Contents/Resources/lib/libjpeg.9.dylib"; sourceTree = "<group>"; };
+		1A68007824318E85002BCF87 /* libtiff.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiff.5.dylib; path = "../../Library/Developer/Xcode/DerivedData/webpic-gftsfyfgnnsdfbcikkpzqvxhkiio/Build/Products/Debug/webpic.app/Contents/Resources/lib/libtiff.5.dylib"; sourceTree = "<group>"; };
+		1A68007924318E85002BCF87 /* libSystem.B.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSystem.B.dylib; path = "../../Library/Developer/Xcode/DerivedData/webpic-gftsfyfgnnsdfbcikkpzqvxhkiio/Build/Products/Debug/webpic.app/Contents/Resources/lib/libSystem.B.dylib"; sourceTree = "<group>"; };
+		1A68007A24318E85002BCF87 /* libwebp.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwebp.7.dylib; path = "../../Library/Developer/Xcode/DerivedData/webpic-gftsfyfgnnsdfbcikkpzqvxhkiio/Build/Products/Debug/webpic.app/Contents/Resources/lib/libwebp.7.dylib"; sourceTree = "<group>"; };
+		1A6800AA2431AEAE002BCF87 /* libjpeg.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.9.dylib; path = webpic/lib/libjpeg.9.dylib; sourceTree = "<group>"; };
+		1A6800AC2431AEB2002BCF87 /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = webpic/lib/libpng16.16.dylib; sourceTree = "<group>"; };
+		1A6800AE2431AEB4002BCF87 /* libSystem.B.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libSystem.B.dylib; path = webpic/lib/libSystem.B.dylib; sourceTree = "<group>"; };
+		1A6800B02431AEB7002BCF87 /* libtiff.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtiff.5.dylib; path = webpic/lib/libtiff.5.dylib; sourceTree = "<group>"; };
+		1A6800B22431AEBD002BCF87 /* libwebp.7.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwebp.7.dylib; path = webpic/lib/libwebp.7.dylib; sourceTree = "<group>"; };
+		1A6800B42431AEC0002BCF87 /* libwebpdemux.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwebpdemux.2.dylib; path = webpic/lib/libwebpdemux.2.dylib; sourceTree = "<group>"; };
 		1A7A6D9424148F43003CB7FB /* NSImage+GenerateThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+GenerateThumbnail.swift"; sourceTree = "<group>"; };
 		1A7A6D9624148F5B003CB7FB /* UInt64+FormatBytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt64+FormatBytes.swift"; sourceTree = "<group>"; };
 		1A7A6D9B2418977D003CB7FB /* WebPProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPProcess.swift; sourceTree = "<group>"; };
@@ -103,6 +136,12 @@
 		1A1034C7240C66F500E70193 = {
 			isa = PBXGroup;
 			children = (
+				1A6800B42431AEC0002BCF87 /* libwebpdemux.2.dylib */,
+				1A6800B22431AEBD002BCF87 /* libwebp.7.dylib */,
+				1A6800B02431AEB7002BCF87 /* libtiff.5.dylib */,
+				1A6800AE2431AEB4002BCF87 /* libSystem.B.dylib */,
+				1A6800AC2431AEB2002BCF87 /* libpng16.16.dylib */,
+				1A6800AA2431AEAE002BCF87 /* libjpeg.9.dylib */,
 				1A1034D2240C66F500E70193 /* webpic */,
 				1A1034E8240C66F800E70193 /* webpicTests */,
 				1A1034F3240C66F800E70193 /* webpicUITests */,
@@ -181,6 +220,11 @@
 		1A68006724312084002BCF87 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1A68007724318E85002BCF87 /* libjpeg.9.dylib */,
+				1A68007624318E85002BCF87 /* libpng16.16.dylib */,
+				1A68007924318E85002BCF87 /* libSystem.B.dylib */,
+				1A68007824318E85002BCF87 /* libtiff.5.dylib */,
+				1A68007A24318E85002BCF87 /* libwebp.7.dylib */,
 				1A680070243121B6002BCF87 /* libwebpdemux.2.dylib */,
 				1A68006C243120DA002BCF87 /* cwebp */,
 				1A68006824312084002BCF87 /* libwebpdemux.2.dylib */,
@@ -208,6 +252,7 @@
 				1A1034CC240C66F500E70193 /* Sources */,
 				1A1034CD240C66F500E70193 /* Frameworks */,
 				1A1034CE240C66F500E70193 /* Resources */,
+				1A68008524318EB8002BCF87 /* CopyFiles */,
 			);
 			buildRules = (
 			);

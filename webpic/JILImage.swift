@@ -26,7 +26,12 @@ final class JILImage: Identifiable, ObservableObject {
     let width: Int
     let filesize: UInt64
     var thumbnail: NSImage? = nil
+    
     @Published var state: JILImageState
+    
+    var aspectRatio: Double {
+        return Double(width) / Double(height)
+    }
     
     init(name: String, height: Int, width: Int, state: JILImageState) {
         self.name = name
