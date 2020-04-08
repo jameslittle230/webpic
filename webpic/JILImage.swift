@@ -74,6 +74,4 @@ extension JILImage: FakeData {
     static func generate() -> JILImage {
         return JILImage(name: "asdf.jpg", height: 250, width: 380, state: JILImageState.allCases.randomElement()!)
     }
-    
-    
 }

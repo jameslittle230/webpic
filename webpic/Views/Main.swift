@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct Main: View {
     @State var images: [JILImage] = []
     @State var dropActive: Bool = false
     @State var selectedView: String? = nil
@@ -41,6 +41,9 @@ struct ContentView: View {
             }
                 .onDrop(of: sidebarDropDelegate.allowedUTIs, delegate: sidebarDropDelegate)
                 .background(self.dropActive ? DropGradientBackground() : nil)
+            .popover(isPresented: .constant(false)) {
+                Text("this should never happen")
+            }
             WelcomeView().onDrop(of: detailDropDelegate.allowedUTIs, delegate: detailDropDelegate)
         }.navigationViewStyle(DoubleColumnNavigationViewStyle())
             .onAppear() {
@@ -60,7 +63,7 @@ struct ContentView_Previews: PreviewProvider {
         ]
         
         return Group {
-            ContentView(images: images).previewLayout(.fixed(width: 800, height: 600))
+            Main(images: images).previewLayout(.fixed(width: 800, height: 600))
         }
     }
 }
@@ -92,20 +95,6 @@ struct HelpButton: View, NSViewRepresentable {
     
     func updateNSView(_ nsView: NSButton, context: NSViewRepresentableContext<HelpButton>) {
         return
-    }
-}
-
-struct WelcomeView: View {
-    var body: some View {
-        Group {
-            VStack(spacing: 24.0) {
-                Text("Welcome to Webpic.").font(.largeTitle).bold()
-                    .font(.subheadline)
-                Text("Drag and drop an image here to get started.")
-                    .font(.subheadline)
-                
-            }.frame(width: 330)
-        }.frame(minWidth: 600, maxWidth: 10000, minHeight: 500, maxHeight: 10000)
     }
 }
 

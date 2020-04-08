@@ -12,24 +12,23 @@ import SwiftUI
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    var window: NSWindow!
-
+    var window: WebpicWindow!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let contentView = ContentView(images: [])
-        
         NotificationCenter.default.addObserver(forName: Notification.Name.NSFileHandleDataAvailable, object: self, queue: nil) { notification in
             print(notification)
             print(NSFileHandleNotificationDataItem)
         }
 
         // Create the window and set the content view. 
-        window = NSWindow(
+        window = WebpicWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
         window.center()
         window.setFrameAutosaveName("Main Window")
+        
+        let contentView = Main(images: window.imageManager.images)
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
     }
@@ -37,7 +36,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
-
-
 }
 

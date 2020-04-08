@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A0401BD243D8796004803A5 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0401BC243D8796004803A5 /* WelcomeView.swift */; };
 		1A1034D4240C66F500E70193 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1034D3240C66F500E70193 /* AppDelegate.swift */; };
-		1A1034D6240C66F500E70193 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1034D5240C66F500E70193 /* ContentView.swift */; };
+		1A1034D6240C66F500E70193 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1034D5240C66F500E70193 /* Main.swift */; };
 		1A1034D8240C66F800E70193 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A1034D7240C66F800E70193 /* Assets.xcassets */; };
 		1A1034DB240C66F800E70193 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A1034DA240C66F800E70193 /* Preview Assets.xcassets */; };
 		1A1034DE240C66F800E70193 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A1034DC240C66F800E70193 /* Main.storyboard */; };
@@ -30,6 +31,8 @@
 		1A7A6D9524148F43003CB7FB /* NSImage+GenerateThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7A6D9424148F43003CB7FB /* NSImage+GenerateThumbnail.swift */; };
 		1A7A6D9724148F5B003CB7FB /* UInt64+FormatBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7A6D9624148F5B003CB7FB /* UInt64+FormatBytes.swift */; };
 		1A7A6D9C2418977D003CB7FB /* WebPProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7A6D9B2418977D003CB7FB /* WebPProcess.swift */; };
+		1AD8DB1C243D96AE00BF7109 /* WebpicWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8DB1B243D96AE00BF7109 /* WebpicWindow.swift */; };
+		1AD8DB1E243D971900BF7109 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD8DB1D243D971900BF7109 /* ImageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,9 +70,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1A1034D0240C66F500E70193 /* webpic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = webpic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A0401BC243D8796004803A5 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		1A1034D0240C66F500E70193 /* Webpic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Webpic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A1034D3240C66F500E70193 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1A1034D5240C66F500E70193 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1A1034D5240C66F500E70193 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		1A1034D7240C66F800E70193 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A1034DA240C66F800E70193 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1A1034DD240C66F800E70193 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -106,6 +110,8 @@
 		1A7A6D9424148F43003CB7FB /* NSImage+GenerateThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+GenerateThumbnail.swift"; sourceTree = "<group>"; };
 		1A7A6D9624148F5B003CB7FB /* UInt64+FormatBytes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UInt64+FormatBytes.swift"; sourceTree = "<group>"; };
 		1A7A6D9B2418977D003CB7FB /* WebPProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebPProcess.swift; sourceTree = "<group>"; };
+		1AD8DB1B243D96AE00BF7109 /* WebpicWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebpicWindow.swift; sourceTree = "<group>"; };
+		1AD8DB1D243D971900BF7109 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +159,7 @@
 		1A1034D1240C66F500E70193 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1A1034D0240C66F500E70193 /* webpic.app */,
+				1A1034D0240C66F500E70193 /* Webpic.app */,
 				1A1034E5240C66F800E70193 /* webpicTests.xctest */,
 				1A1034F0240C66F800E70193 /* webpicUITests.xctest */,
 			);
@@ -164,6 +170,8 @@
 			isa = PBXGroup;
 			children = (
 				1A1034D3240C66F500E70193 /* AppDelegate.swift */,
+				1AD8DB1B243D96AE00BF7109 /* WebpicWindow.swift */,
+				1AD8DB1D243D971900BF7109 /* ImageManager.swift */,
 				1A1034D7240C66F800E70193 /* Assets.xcassets */,
 				1A680063243116A5002BCF87 /* lib */,
 				1A7A6D9824148F66003CB7FB /* Extensions */,
@@ -208,11 +216,12 @@
 		1A10350C240CCBB400E70193 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1A1034D5240C66F500E70193 /* ContentView.swift */,
+				1A1034D5240C66F500E70193 /* Main.swift */,
 				1A103506240CCA6200E70193 /* CTAButton.swift */,
 				1A103502240CA73F00E70193 /* NavigationDetail.swift */,
 				1A10350A240CCB3400E70193 /* NavigationRow.swift */,
 				1A103504240CCA3600E70193 /* ProgressBar.swift */,
+				1A0401BC243D8796004803A5 /* WelcomeView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -245,9 +254,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1A1034CF240C66F500E70193 /* webpic */ = {
+		1A1034CF240C66F500E70193 /* Webpic */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1A1034F9240C66F800E70193 /* Build configuration list for PBXNativeTarget "webpic" */;
+			buildConfigurationList = 1A1034F9240C66F800E70193 /* Build configuration list for PBXNativeTarget "Webpic" */;
 			buildPhases = (
 				1A1034CC240C66F500E70193 /* Sources */,
 				1A1034CD240C66F500E70193 /* Frameworks */,
@@ -258,9 +267,9 @@
 			);
 			dependencies = (
 			);
-			name = webpic;
+			name = Webpic;
 			productName = webpic;
-			productReference = 1A1034D0240C66F500E70193 /* webpic.app */;
+			productReference = 1A1034D0240C66F500E70193 /* Webpic.app */;
 			productType = "com.apple.product-type.application";
 		};
 		1A1034E4240C66F800E70193 /* webpicTests */ = {
@@ -335,7 +344,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1A1034CF240C66F500E70193 /* webpic */,
+				1A1034CF240C66F500E70193 /* Webpic */,
 				1A1034E4240C66F800E70193 /* webpicTests */,
 				1A1034EF240C66F800E70193 /* webpicUITests */,
 			);
@@ -377,10 +386,13 @@
 			files = (
 				1A103507240CCA6200E70193 /* CTAButton.swift in Sources */,
 				1A10350B240CCB3400E70193 /* NavigationRow.swift in Sources */,
-				1A1034D6240C66F500E70193 /* ContentView.swift in Sources */,
+				1A1034D6240C66F500E70193 /* Main.swift in Sources */,
 				1A10350E240CCBE100E70193 /* JILImage.swift in Sources */,
 				1A7A6D9C2418977D003CB7FB /* WebPProcess.swift in Sources */,
 				1A6800662431172A002BCF87 /* JpegTranProcess.swift in Sources */,
+				1AD8DB1E243D971900BF7109 /* ImageManager.swift in Sources */,
+				1A0401BD243D8796004803A5 /* WelcomeView.swift in Sources */,
+				1AD8DB1C243D96AE00BF7109 /* WebpicWindow.swift in Sources */,
 				1A1034D4240C66F500E70193 /* AppDelegate.swift in Sources */,
 				1A103505240CCA3600E70193 /* ProgressBar.swift in Sources */,
 				1A7A6D9724148F5B003CB7FB /* UInt64+FormatBytes.swift in Sources */,
@@ -411,12 +423,12 @@
 /* Begin PBXTargetDependency section */
 		1A1034E7240C66F800E70193 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1A1034CF240C66F500E70193 /* webpic */;
+			target = 1A1034CF240C66F500E70193 /* Webpic */;
 			targetProxy = 1A1034E6240C66F800E70193 /* PBXContainerItemProxy */;
 		};
 		1A1034F2240C66F800E70193 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 1A1034CF240C66F500E70193 /* webpic */;
+			target = 1A1034CF240C66F500E70193 /* Webpic */;
 			targetProxy = 1A1034F1240C66F800E70193 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -684,7 +696,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1A1034F9240C66F800E70193 /* Build configuration list for PBXNativeTarget "webpic" */ = {
+		1A1034F9240C66F800E70193 /* Build configuration list for PBXNativeTarget "Webpic" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1A1034FA240C66F800E70193 /* Debug */,
