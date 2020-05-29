@@ -21,6 +21,8 @@
 		1A103509240CCB1200E70193 /* Double+Clamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A103508240CCB1200E70193 /* Double+Clamp.swift */; };
 		1A10350B240CCB3400E70193 /* NavigationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A10350A240CCB3400E70193 /* NavigationRow.swift */; };
 		1A10350E240CCBE100E70193 /* JILImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A10350D240CCBE100E70193 /* JILImage.swift */; };
+		1A522A242480867700DE3D98 /* SidebarDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A522A232480867700DE3D98 /* SidebarDropDelegate.swift */; };
+		1A522A2824808A7E00DE3D98 /* ImageOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A522A2724808A7E00DE3D98 /* ImageOptions.swift */; };
 		1A680064243116A5002BCF87 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 1A680063243116A5002BCF87 /* lib */; };
 		1A6800662431172A002BCF87 /* JpegTranProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6800652431172A002BCF87 /* JpegTranProcess.swift */; };
 		1A6800AB2431AEAE002BCF87 /* libjpeg.9.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1A6800AA2431AEAE002BCF87 /* libjpeg.9.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -53,6 +55,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1A4D2530244D68B70090C6AB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1A68008524318EB8002BCF87 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -91,6 +102,8 @@
 		1A103508240CCB1200E70193 /* Double+Clamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Clamp.swift"; sourceTree = "<group>"; };
 		1A10350A240CCB3400E70193 /* NavigationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRow.swift; sourceTree = "<group>"; };
 		1A10350D240CCBE100E70193 /* JILImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JILImage.swift; sourceTree = "<group>"; };
+		1A522A232480867700DE3D98 /* SidebarDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarDropDelegate.swift; sourceTree = "<group>"; };
+		1A522A2724808A7E00DE3D98 /* ImageOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOptions.swift; sourceTree = "<group>"; };
 		1A680063243116A5002BCF87 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		1A6800652431172A002BCF87 /* JpegTranProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JpegTranProcess.swift; sourceTree = "<group>"; };
 		1A68006824312084002BCF87 /* libwebpdemux.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwebpdemux.2.dylib; path = "../../Library/Developer/Xcode/DerivedData/webpic-gftsfyfgnnsdfbcikkpzqvxhkiio/Build/Products/Debug/webpic.app/Contents/Resources/lib/libwebpdemux.2.dylib"; sourceTree = "<group>"; };
@@ -169,20 +182,21 @@
 		1A1034D2240C66F500E70193 /* webpic */ = {
 			isa = PBXGroup;
 			children = (
-				1A1034D3240C66F500E70193 /* AppDelegate.swift */,
-				1AD8DB1B243D96AE00BF7109 /* WebpicWindow.swift */,
-				1AD8DB1D243D971900BF7109 /* ImageManager.swift */,
-				1A1034D7240C66F800E70193 /* Assets.xcassets */,
 				1A680063243116A5002BCF87 /* lib */,
-				1A7A6D9824148F66003CB7FB /* Extensions */,
+				1A1034E0240C66F800E70193 /* webpic.entitlements */,
 				1A1034DF240C66F800E70193 /* Info.plist */,
+				1A1034D3240C66F500E70193 /* AppDelegate.swift */,
+				1AD8DB1D243D971900BF7109 /* ImageManager.swift */,
 				1A10350D240CCBE100E70193 /* JILImage.swift */,
+				1A6800652431172A002BCF87 /* JpegTranProcess.swift */,
+				1AD8DB1B243D96AE00BF7109 /* WebpicWindow.swift */,
+				1A7A6D9B2418977D003CB7FB /* WebPProcess.swift */,
+				1A1034D7240C66F800E70193 /* Assets.xcassets */,
+				1A7A6D9824148F66003CB7FB /* Extensions */,
 				1A1034DC240C66F800E70193 /* Main.storyboard */,
 				1A1034D9240C66F800E70193 /* Preview Content */,
+				1A522A222480866100DE3D98 /* View Adjacent */,
 				1A10350C240CCBB400E70193 /* Views */,
-				1A1034E0240C66F800E70193 /* webpic.entitlements */,
-				1A6800652431172A002BCF87 /* JpegTranProcess.swift */,
-				1A7A6D9B2418977D003CB7FB /* WebPProcess.swift */,
 			);
 			path = webpic;
 			sourceTree = "<group>";
@@ -216,14 +230,39 @@
 		1A10350C240CCBB400E70193 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1A522A2624808A6B00DE3D98 /* NavigationDetail */,
+				1A522A2524808A5900DE3D98 /* Util */,
 				1A1034D5240C66F500E70193 /* Main.swift */,
-				1A103506240CCA6200E70193 /* CTAButton.swift */,
-				1A103502240CA73F00E70193 /* NavigationDetail.swift */,
 				1A10350A240CCB3400E70193 /* NavigationRow.swift */,
-				1A103504240CCA3600E70193 /* ProgressBar.swift */,
 				1A0401BC243D8796004803A5 /* WelcomeView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		1A522A222480866100DE3D98 /* View Adjacent */ = {
+			isa = PBXGroup;
+			children = (
+				1A522A232480867700DE3D98 /* SidebarDropDelegate.swift */,
+			);
+			path = "View Adjacent";
+			sourceTree = "<group>";
+		};
+		1A522A2524808A5900DE3D98 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				1A103506240CCA6200E70193 /* CTAButton.swift */,
+				1A103504240CCA3600E70193 /* ProgressBar.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		1A522A2624808A6B00DE3D98 /* NavigationDetail */ = {
+			isa = PBXGroup;
+			children = (
+				1A103502240CA73F00E70193 /* NavigationDetail.swift */,
+				1A522A2724808A7E00DE3D98 /* ImageOptions.swift */,
+			);
+			path = NavigationDetail;
 			sourceTree = "<group>";
 		};
 		1A68006724312084002BCF87 /* Frameworks */ = {
@@ -262,6 +301,7 @@
 				1A1034CD240C66F500E70193 /* Frameworks */,
 				1A1034CE240C66F500E70193 /* Resources */,
 				1A68008524318EB8002BCF87 /* CopyFiles */,
+				1A4D2530244D68B70090C6AB /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -386,6 +426,7 @@
 			files = (
 				1A103507240CCA6200E70193 /* CTAButton.swift in Sources */,
 				1A10350B240CCB3400E70193 /* NavigationRow.swift in Sources */,
+				1A522A2824808A7E00DE3D98 /* ImageOptions.swift in Sources */,
 				1A1034D6240C66F500E70193 /* Main.swift in Sources */,
 				1A10350E240CCBE100E70193 /* JILImage.swift in Sources */,
 				1A7A6D9C2418977D003CB7FB /* WebPProcess.swift in Sources */,
@@ -398,6 +439,7 @@
 				1A7A6D9724148F5B003CB7FB /* UInt64+FormatBytes.swift in Sources */,
 				1A103509240CCB1200E70193 /* Double+Clamp.swift in Sources */,
 				1A7A6D9524148F43003CB7FB /* NSImage+GenerateThumbnail.swift in Sources */,
+				1A522A242480867700DE3D98 /* SidebarDropDelegate.swift in Sources */,
 				1A103503240CA73F00E70193 /* NavigationDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

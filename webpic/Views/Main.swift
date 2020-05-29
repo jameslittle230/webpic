@@ -9,27 +9,28 @@
 import SwiftUI
 
 struct Main: View {
-    @State var images: [JILImage] = []
+    @EnvironmentObject var imageManager: ImageManager
     @State var dropActive: Bool = false
     @State var selectedView: String? = nil
     
     
     var body: some View {
         let sidebarDropDelegate = SidebarDropDelegate(
-            images: $images,
+            imageManager: imageManager,
             active: $dropActive,
             selectedView: $selectedView
         )
         
         let detailDropDelegate = SidebarDropDelegate(
-            images: $images,
+            imageManager: imageManager,
             active: $dropActive,
             selectedView: $selectedView
         )
         
         return NavigationView() {
             VStack {
-                List(images) { image in
+                List(imageManager
+                    .images) { image in
                     NavigationLink(destination: NavigationDetail(model: image).onDrop(of: detailDropDelegate.allowedUTIs, delegate: detailDropDelegate),
                                    tag: image.name,
                                    selection: self.$selectedView) {
@@ -44,7 +45,9 @@ struct Main: View {
             .popover(isPresented: .constant(false)) {
                 Text("this should never happen")
             }
-            WelcomeView().onDrop(of: detailDropDelegate.allowedUTIs, delegate: detailDropDelegate)
+            WelcomeView()
+            .environmentObject(imageManager)
+            .onDrop(of: detailDropDelegate.allowedUTIs, delegate: detailDropDelegate)
         }.navigationViewStyle(DoubleColumnNavigationViewStyle())
             .onAppear() {
                  
@@ -62,8 +65,13 @@ struct ContentView_Previews: PreviewProvider {
             JILImage(name: "asdf5.jpg", height: 200, width: 300, state: .unuploaded)
         ]
         
+        let imageManager = ImageManager()
+        imageManager.images = images
+        
         return Group {
-            Main(images: images).previewLayout(.fixed(width: 800, height: 600))
+            Main()
+            .environmentObject(imageManager)
+            .previewLayout(.fixed(width: 800, height: 600))
         }
     }
 }
@@ -95,62 +103,6 @@ struct HelpButton: View, NSViewRepresentable {
     
     func updateNSView(_ nsView: NSButton, context: NSViewRepresentableContext<HelpButton>) {
         return
-    }
-}
-
-struct SidebarDropDelegate: DropDelegate {
-    @Binding var images: [JILImage]
-    @Binding var active: Bool
-    @Binding var selectedView: String?
-    
-    let allowedUTIs = ["public.image", "public.file-url", "public.directory"]
-    
-    func validateDrop(info: DropInfo) -> Bool {
-        return info.hasItemsConforming(to: allowedUTIs)
-    }
-    
-    func dropEntered(info: DropInfo) {
-        self.active = true
-    }
-    
-    func performDrop(info: DropInfo) -> Bool {
-        
-        self.active = true
-        
-        if let item = info.itemProviders(for: allowedUTIs).first {
-            item.loadItem(forTypeIdentifier: "public.file-url", options: nil) { (urlData, error) in
-                DispatchQueue.main.async {
-                    guard let urlData = urlData as? Data else {
-                        print(error!)
-                        return
-                    }
-                    
-                    let url = NSURL(dataRepresentation: urlData, relativeTo: nil)
-                    guard let image = JILImage(fromUrl: url) else {
-                        print("Can't generate JILImage from file URL")
-                        return
-                    }
-                    
-                    self.images.append(image)
-                }
-            }
-            
-            return true
-            
-        } else {
-            print("Invalid UTI")
-            return false
-        }
-
-    }
-    
-    func dropUpdated(info: DropInfo) -> DropProposal? {
-        self.active = true
-        return nil
-    }
-    
-    func dropExited(info: DropInfo) {
-        self.active = false
     }
 }
 

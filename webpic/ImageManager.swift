@@ -8,20 +8,45 @@
 
 import Foundation
 
-struct ImageManager {
-    var images: [JILImage] = []
+class ImageManager: ObservableObject {
+    @Published var images: [JILImage] = []
     
-    func addDirectory(_ path: URL) {
-        // get images in directory
-        // turn all images into JILImages
-        // Add JILImages into the list
-    }
-    
-    func addImage(_ path: URL) {
-        // asdf
+    func addFromUrl(_ url: NSURL) -> Int {
+        guard let path = url.path else {
+            return 0
+        }
+        
+        var imagesAdded = 0
+        
+        do {
+            let attributes = try FileManager.default.attributesOfItem(atPath: path)
+            if let type = attributes[FileAttributeKey.type] as? FileAttributeType {
+                let isDirectory = type == FileAttributeType.typeDirectory
+                
+                if(isDirectory) {
+                    if let enumerator = FileManager.default.enumerator(atPath: path) {
+                        for element in enumerator {
+                            if let pathString = element as? String {
+                                let url = NSURL(fileURLWithPath: pathString, relativeTo: url as URL)
+                                imagesAdded += self.addFromUrl(url)
+                            }
+                        }
+                    }
+                } else if let image = JILImage(fromUrl: url) {
+                    images.append(image)
+                    imagesAdded += 1
+                }
+            }
+        } catch {}
+        
+        return 0
     }
     
     func clearCompletedImages() {
+        
+    }
+    
+    func bulkProcess() {
         
     }
 }

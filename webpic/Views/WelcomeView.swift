@@ -39,10 +39,11 @@ struct WelcomeButton: View {
 }
 
 struct WelcomeView: View {
+    @EnvironmentObject var imageManager: ImageManager
     @State var hovered = false;
     var body: some View {
         Group {
-            VStack(spacing: 24.0) {
+            VStack(spacing: 42.0) {
                 Spacer()
                 HStack {
                     Text("Welcome to Webpic.").font(.largeTitle).bold()
@@ -51,11 +52,9 @@ struct WelcomeView: View {
                 }
                 
                 VStack(spacing: 7) {
-                    WelcomeButton(method: runOpenPanel, icon: nil, text: "Open an Image")
-                    HStack {
-                        Text("(Or drag and drop)").font(.footnote)
-                        Spacer()
-                    }
+                    WelcomeButton(method: runOpenPanel, icon: nil, text: "Open an Image or Folder")
+
+                    Text("(Or drag and drop)").font(.footnote)
                 }
                 
                 WelcomeButton(method: {}, icon: nil, text: "Configure an Upload Destination")
@@ -69,12 +68,17 @@ struct WelcomeView: View {
         let openPanel = NSOpenPanel()
         openPanel.message = "Open an image or directory"
         openPanel.prompt = "Open"
-        openPanel.allowedFileTypes = ["none"]
+        openPanel.allowedFileTypes = ["png", "jpg", "jpeg"]
+        openPanel.allowsMultipleSelection = true
         openPanel.allowsOtherFileTypes = false
         openPanel.canChooseFiles = true
         openPanel.canChooseDirectories = true
         
         let _ = openPanel.runModal()
+        for url in openPanel.urls {
+            let imagesAddedCount = imageManager.addFromUrl(url as NSURL)
+            print(imagesAddedCount)
+        }
         print(openPanel.urls)
     }
 }
