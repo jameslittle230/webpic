@@ -24,6 +24,7 @@
 		1A522A242480867700DE3D98 /* SidebarDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A522A232480867700DE3D98 /* SidebarDropDelegate.swift */; };
 		1A522A2824808A7E00DE3D98 /* ImageOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A522A2724808A7E00DE3D98 /* ImageOptions.swift */; };
 		1A522A2A2480A7FB00DE3D98 /* ListActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A522A292480A7FB00DE3D98 /* ListActions.swift */; };
+		1A522A2C24845FA000DE3D98 /* NSImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A522A2B24845FA000DE3D98 /* NSImage+Resize.swift */; };
 		1A680064243116A5002BCF87 /* lib in Resources */ = {isa = PBXBuildFile; fileRef = 1A680063243116A5002BCF87 /* lib */; };
 		1A6800662431172A002BCF87 /* JpegTranProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6800652431172A002BCF87 /* JpegTranProcess.swift */; };
 		1A6800AB2431AEAE002BCF87 /* libjpeg.9.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1A6800AA2431AEAE002BCF87 /* libjpeg.9.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -106,6 +107,7 @@
 		1A522A232480867700DE3D98 /* SidebarDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarDropDelegate.swift; sourceTree = "<group>"; };
 		1A522A2724808A7E00DE3D98 /* ImageOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageOptions.swift; sourceTree = "<group>"; };
 		1A522A292480A7FB00DE3D98 /* ListActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListActions.swift; sourceTree = "<group>"; };
+		1A522A2B24845FA000DE3D98 /* NSImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Resize.swift"; sourceTree = "<group>"; };
 		1A680063243116A5002BCF87 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
 		1A6800652431172A002BCF87 /* JpegTranProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JpegTranProcess.swift; sourceTree = "<group>"; };
 		1A68006824312084002BCF87 /* libwebpdemux.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwebpdemux.2.dylib; path = "../../Library/Developer/Xcode/DerivedData/webpic-gftsfyfgnnsdfbcikkpzqvxhkiio/Build/Products/Debug/webpic.app/Contents/Resources/lib/libwebpdemux.2.dylib"; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				1A103508240CCB1200E70193 /* Double+Clamp.swift */,
 				1A7A6D9424148F43003CB7FB /* NSImage+GenerateThumbnail.swift */,
 				1A7A6D9624148F5B003CB7FB /* UInt64+FormatBytes.swift */,
+				1A522A2B24845FA000DE3D98 /* NSImage+Resize.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 				1AD8DB1E243D971900BF7109 /* ImageManager.swift in Sources */,
 				1A0401BD243D8796004803A5 /* WelcomeView.swift in Sources */,
 				1A522A2A2480A7FB00DE3D98 /* ListActions.swift in Sources */,
+				1A522A2C24845FA000DE3D98 /* NSImage+Resize.swift in Sources */,
 				1AD8DB1C243D96AE00BF7109 /* WebpicWindow.swift in Sources */,
 				1A1034D4240C66F500E70193 /* AppDelegate.swift in Sources */,
 				1A103505240CCA3600E70193 /* ProgressBar.swift in Sources */,

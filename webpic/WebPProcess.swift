@@ -24,8 +24,8 @@ class WebPProcess: JILProcess {
     private let executableURL = URL(fileURLWithPath: "Contents/Resources/lib/cwebp", isDirectory: false, relativeTo:  NSRunningApplication.current.bundleURL)
     private let p = Process()
     
-    private let input: URL
-    private let output: URL
+    let input: URL
+    let output: URL
     
     private let standardErrorPipe = Pipe()
     

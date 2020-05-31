@@ -88,8 +88,14 @@ final class JILImage: Identifiable, ObservableObject {
         }
     }
     
-    func process() -> AnyCancellable? {
+    func process(size: NSSize) -> AnyCancellable? {
         self.state = .processing(0.0)
+        
+        guard let toBeResized = NSImage(contentsOf: url as URL) else {
+            return nil
+        }
+        
+        let resized = toBeResized.resized(to: size)
         
         guard let webP = WebPProcess(
             input: url.filePathURL!,

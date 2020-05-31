@@ -10,15 +10,17 @@ import SwiftUI
 import Combine
 
 struct NavigationDetail: View {
+    @EnvironmentObject var imageManager: ImageManager
     @ObservedObject var model: JILImage
     
     @State var uploadProgress = -1.0
-    @State var processCancellable: AnyCancellable?
     
     var body: some View {
         VStack {
             Button(action: {
-                self.processCancellable = self.model.process()
+                if let cancellable = self.model.process(size: NSSize(width: 22, height: 44)) {
+                    self.imageManager.cancellables.append(cancellable)
+                }
             }) {
                 CTAButton(text: model.state == .processed ? "Process Again" : "Process")
             }.buttonStyle(PlainButtonStyle())

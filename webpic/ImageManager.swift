@@ -54,7 +54,7 @@ class ImageManager: ObservableObject {
     
     func bulkProcess() {
         for image in images {
-            if let cancellable = image.process() {
+            if let cancellable = image.process(size: NSSize(width: 100, height: 100)) {
                 self.cancellables.append(cancellable)
             }
         }

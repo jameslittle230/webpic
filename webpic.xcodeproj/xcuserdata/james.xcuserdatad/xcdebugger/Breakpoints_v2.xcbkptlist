@@ -14,9 +14,9 @@
             filePath = "webpic/JILImage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
-            landmarkName = "process()"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "process(size:)"
             landmarkType = "7">
             <Actions>
                <BreakpointActionProxy
@@ -39,9 +39,9 @@
             filePath = "webpic/JILImage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "process()"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
+            landmarkName = "process(size:)"
             landmarkType = "7">
             <Actions>
                <BreakpointActionProxy
@@ -64,9 +64,9 @@
             filePath = "webpic/JILImage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "process()"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "process(size:)"
             landmarkType = "7">
             <Actions>
                <BreakpointActionProxy
@@ -89,9 +89,9 @@
             filePath = "webpic/JILImage.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "process()"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "process(size:)"
             landmarkType = "7">
             <Actions>
                <BreakpointActionProxy
@@ -102,6 +102,47 @@
                   </ActionContent>
                </BreakpointActionProxy>
             </Actions>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3409A51F-6AF3-441F-9163-449A79F82A87"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "webpic/WebPProcess.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "init(input:output:)"
+            landmarkType = "7">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.Log">
+                  <ActionContent
+                     message = ""
+                     conveyanceType = "0">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "03D60F4D-0DF4-43B7-A96E-385F01E7AD6A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "webpic/JILImage.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "process(size:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
