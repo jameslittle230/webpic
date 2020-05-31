@@ -7,18 +7,23 @@
 //
 
 import AppKit
+import Combine
 
 class JPEGTranProcess: JILProcess {
-    let executableURL = URL(fileURLWithPath: "Contents/Resources/lib/jpegtran", isDirectory: false, relativeTo:  NSRunningApplication.current.bundleURL)
-    let p = Process()
+    var progress: AnyPublisher<Double, Error> {
+        progressSubject.eraseToAnyPublisher()
+    }
+    private var progressSubject = PassthroughSubject<Double, Error>()
     
-    let input: URL
-    let output: URL
-    let progressDelegate: ProgressDelegate?
+    private let executableURL = URL(fileURLWithPath: "Contents/Resources/lib/jpegtran", isDirectory: false, relativeTo:  NSRunningApplication.current.bundleURL)
+    private let p = Process()
     
-    let standardErrorPipe = Pipe()
+    private let input: URL
+    private let output: URL
     
-    required init?(input: URL, output: URL, progressDelegate: ProgressDelegate? = nil) {
+    private let standardErrorPipe = Pipe()
+    
+    required init?(input: URL, output: URL) {
         guard let inputFilePathURL = (input as NSURL).filePathURL else {
             return nil
         }
@@ -28,10 +33,10 @@ class JPEGTranProcess: JILProcess {
         
         self.input = input
         self.output = output
-        self.progressDelegate = progressDelegate
     }
     
-    func run(_ completion: @escaping () -> Void) {
+    func run() {
+        progressSubject.send(0.0)
 
         do {
             try Data().write(to: output)
@@ -56,33 +61,11 @@ class JPEGTranProcess: JILProcess {
                 try outputHandle.close()
                 
                 DispatchQueue.main.sync {
-                    self.progressDelegate?.complete()
-                    completion()
+                    self.progressSubject.send(completion: .finished)
                 }
             } catch {
-                print("error!")
+                self.progressSubject.send(completion: .failure(error))
             }
         }
     }
-    
-//    func processIncomingStandardErrorData(_ data: Data) {
-//        if let string = String(data: data, encoding: String.Encoding.utf8) {
-//            let lines = string.split(separator: "\n")
-//
-//            for line in lines {
-//                let words = line.split(separator: " ")
-//
-//                guard words.count > 3,
-//                    let intValue = Int(words[words.count - 3]),
-//                    intValue <= 100,
-//                    intValue >= 0 else {
-//                        break
-//                }
-//
-//                DispatchQueue.main.sync {
-//                    progressDelegate?.notifyWithProgress(Double(intValue) / 100.0)
-//                }
-//            }
-//        }
-//    }
 }

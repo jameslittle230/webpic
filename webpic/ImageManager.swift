@@ -7,9 +7,11 @@
 //
 
 import Foundation
+import Combine
 
 class ImageManager: ObservableObject {
     @Published var images: [JILImage] = []
+    var cancellables: [AnyCancellable] = []
     
     func addFromUrl(_ url: NSURL) -> Int {
         guard let path = url.path else {
@@ -33,7 +35,9 @@ class ImageManager: ObservableObject {
                         }
                     }
                 } else if let image = JILImage(fromUrl: url) {
-                    images.append(image)
+                    DispatchQueue.main.async {
+                        self.images.append(image)
+                    }
                     imagesAdded += 1
                 }
             }
@@ -43,10 +47,16 @@ class ImageManager: ObservableObject {
     }
     
     func clearCompletedImages() {
-        
+        images = images.filter { image in
+            !(image.state == .processed)
+        }
     }
     
     func bulkProcess() {
-        
+        for image in images {
+            if let cancellable = image.process() {
+                self.cancellables.append(cancellable)
+            }
+        }
     }
 }

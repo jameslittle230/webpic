@@ -31,14 +31,17 @@ struct Main: View {
             VStack {
                 List(imageManager
                     .images) { image in
-                    NavigationLink(destination: NavigationDetail(model: image).onDrop(of: detailDropDelegate.allowedUTIs, delegate: detailDropDelegate),
-                                   tag: image.name,
-                                   selection: self.$selectedView) {
-                        NavigationRow(model: image)
-                    }
+                        NavigationLink(destination: NavigationDetail(model: image)
+                            .onDrop(
+                                of: detailDropDelegate.allowedUTIs,
+                                delegate: detailDropDelegate),
+                                       tag: image.name,
+                                       selection: self.$selectedView) {
+                                        NavigationRow(model: image)
+                        }
                 }.listStyle(SidebarListStyle()).frame(minWidth: 320)
                 Spacer()
-                PostListActions()
+                ListActions().environmentObject(imageManager)
             }
                 .onDrop(of: sidebarDropDelegate.allowedUTIs, delegate: sidebarDropDelegate)
                 .background(self.dropActive ? DropGradientBackground() : nil)
@@ -58,11 +61,11 @@ struct Main: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let images = [
-            JILImage(name: "asdf.jpg", height: 200, width: 300, state: .uploaded),
-            JILImage(name: "asdf2.jpg", height: 200, width: 300, state: .unuploaded),
-            JILImage(name: "asdf3.jpg", height: 200, width: 300, state: .uploading),
-            JILImage(name: "asdf4.jpg", height: 200, width: 300, state: .unuploaded),
-            JILImage(name: "asdf5.jpg", height: 200, width: 300, state: .unuploaded)
+            JILImage(name: "asdf.jpg", height: 200, width: 300, state: .processed),
+            JILImage(name: "asdf2.jpg", height: 200, width: 300, state: .unprocessed),
+            JILImage(name: "asdf3.jpg", height: 200, width: 300, state: .processing(0.28)),
+            JILImage(name: "asdf4.jpg", height: 200, width: 300, state: .unprocessed),
+            JILImage(name: "asdf5.jpg", height: 200, width: 300, state: .unprocessed)
         ]
         
         let imageManager = ImageManager()
@@ -73,21 +76,6 @@ struct ContentView_Previews: PreviewProvider {
             .environmentObject(imageManager)
             .previewLayout(.fixed(width: 800, height: 600))
         }
-    }
-}
-
-struct PostListActions: View {
-    var body: some View {
-        HStack {
-            Button(action: {}) {
-                Text("Clear Completed")
-            }
-            Button(action: {}) {
-                Text("Bulk Process")
-            }
-            
-            HelpButton(action: {})
-        }.padding(.bottom)
     }
 }
 

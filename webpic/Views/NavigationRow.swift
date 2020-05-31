@@ -9,14 +9,15 @@
 import SwiftUI
 
 struct NavigationRow: View {
-    var model: JILImage
+    @ObservedObject var model: JILImage
+    
     var progressBarVisible: Bool {
-        return model.state == .uploading
+        return model.state == .processing(0)
     }
     
     var body: some View {
         HStack {
-            Image(nsImage: model.thumbnail!)
+            Image(nsImage: self.model.thumbnail!)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 40, height: 40)
@@ -25,16 +26,18 @@ struct NavigationRow: View {
             VStack(alignment: .leading, spacing: progressBarVisible ? 3.0 : 0.0) {
                 HStack() {
                     Text(model.name).font(.callout).bold()
-                    model.state == .uploaded ? Checkmark(font: .callout) : nil
+                    model.state == .processed ? Checkmark(font: .callout) : nil
                     Spacer()
                 }
                 .padding(0.0)
                 
                 Group {
                     if(progressBarVisible) {
-                        ProgressBar(progress: 0.28, height: 6)
+                        ProgressBar(progress: .constant(0.5), height: 6)
                     } else {
-                        Text("\(model.width) x \(model.height) • \(model.filesize.formatBytes())").font(.caption).foregroundColor(.secondary)
+                        Text("\(model.width) x \(model.height) • \(model.filesize.formatBytes())")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
                     }
                 }
                 
@@ -47,11 +50,11 @@ struct NavigationRow: View {
 struct NavigationRow_Previews: PreviewProvider {
     static var previews: some View {
         let images = [
-            JILImage(name: "asdf.jpg", height: 200, width: 300, state: .uploaded),
-            JILImage(name: "asdf2.jpg", height: 200, width: 300, state: .unuploaded),
-            JILImage(name: "asdf3.jpg", height: 200, width: 300, state: .uploading),
-            JILImage(name: "asdf4.jpg", height: 200, width: 300, state: .unuploaded),
-            JILImage(name: "asdf5.jpg", height: 200, width: 300, state: .unuploaded)
+            JILImage(name: "asdf.jpg", height: 200, width: 300, state: .processed),
+            JILImage(name: "asdf2.jpg", height: 200, width: 300, state: .unprocessed),
+            JILImage(name: "asdf3.jpg", height: 200, width: 300, state: .processing(0.28)),
+            JILImage(name: "asdf4.jpg", height: 200, width: 300, state: .unprocessed),
+            JILImage(name: "asdf5.jpg", height: 200, width: 300, state: .unprocessed)
         ]
 
         return Group {

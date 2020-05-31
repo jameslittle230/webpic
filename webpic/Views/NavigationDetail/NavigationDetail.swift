@@ -7,52 +7,23 @@
 //
 
 import SwiftUI
-
-class WebPProgressDelegate: ProgressDelegate, ObservableObject {
-    @Published var progress: Double = 0.0
-    
-    func notifyWithProgress(_ progress: Double) {
-        self.progress = progress
-    }
-    
-    func complete() {
-        self.progress = 1.0
-    }
-}
+import Combine
 
 struct NavigationDetail: View {
     @ObservedObject var model: JILImage
-    @ObservedObject var webPProgressDelegate: WebPProgressDelegate = WebPProgressDelegate()
+    
+    @State var uploadProgress = -1.0
+    @State var processCancellable: AnyCancellable?
     
     var body: some View {
         VStack {
             Button(action: {
-                self.model.state = .uploading
-                
-                _ = WebPProcess(
-                    input: self.model.url.filePathURL!,
-                    output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("out2.webp"),
-                    progressDelegate: Optional.some(self.webPProgressDelegate)
-                    )?.run() {
-                        print("cwebp done")
-                        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 1) {
-                            self.model.state = .uploaded
-                        }
-                }
-                
-                _ = JPEGTranProcess(
-                    input: self.model.url.filePathURL!,
-                    output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("out2.jpeg"),
-                    progressDelegate: nil
-                    )?.run() {
-                        print("JPEGTran Done")
-                }
+                self.processCancellable = self.model.process()
             }) {
-                CTAButton(text: model.state == .uploaded ? "Process Again" : "Process")
+                CTAButton(text: model.state == .processed ? "Process Again" : "Process")
             }.buttonStyle(PlainButtonStyle())
             
             GeometryReader { geometry in
-                
                 HStack(alignment: .top, spacing: 18) {
                     ImagePreview(image: Image(nsImage: NSImage(contentsOf: self.model.url as URL)!))
                     ImageOptions(model: self.model, viewModel: ImageOptionsViewModel(model: self.model)).frame(width: 300)
@@ -61,12 +32,12 @@ struct NavigationDetail: View {
             
             Spacer()
             
-            if(model.state == .uploaded) {
+            if model.state == .processed {
                 PostUploadInfo(model: model)
             }
             
-            if(model.state == .uploading) {
-                ProgressBar(progress: webPProgressDelegate.progress)
+            if uploadProgress != -1.0 {
+                ProgressBar(progress: .constant(0.5))
             }
         }.padding(18.0).frame(minWidth: 400, minHeight: 400)
     }

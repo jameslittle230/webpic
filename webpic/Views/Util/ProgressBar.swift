@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ProgressBar: View {
-    var progress: Double
+    @Binding var progress: Double
     var height: CGFloat = 12
     
     var computedProgress: Double {
@@ -31,6 +31,6 @@ struct ProgressBar: View {
 
 struct ProgressBar_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressBar(progress: 0.28)
+        ProgressBar(progress: .constant(0.28))
     }
 }

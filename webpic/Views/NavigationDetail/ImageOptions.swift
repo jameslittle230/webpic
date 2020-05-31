@@ -16,7 +16,7 @@ struct ImageOptions: View {
         VStack(alignment: .leading) {
             HStack {
                 Text(model.name).font(.title).bold()
-                if model.state == .uploaded {
+                if model.state == .processed {
                     Checkmark()
                 }
                 Spacer()

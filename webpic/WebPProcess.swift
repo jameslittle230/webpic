@@ -7,24 +7,29 @@
 //
 
 import AppKit
+import Combine
 
 protocol JILProcess {
-    var executableURL: URL { get }
-    init?(input: URL, output: URL, progressDelegate: ProgressDelegate?)
-    func run(_ completion: @escaping () -> Void)
+    var progress: AnyPublisher<Double, Error> { get }
+    init?(input: URL, output: URL)
+    func run()
 }
 
 class WebPProcess: JILProcess {
-    let executableURL = URL(fileURLWithPath: "Contents/Resources/lib/cwebp", isDirectory: false, relativeTo:  NSRunningApplication.current.bundleURL)
-    let p = Process()
+    var progress: AnyPublisher<Double, Error> {
+        progressSubject.eraseToAnyPublisher()
+    }
+    private var progressSubject = PassthroughSubject<Double, Error>()
     
-    let input: URL
-    let output: URL
-    let progressDelegate: ProgressDelegate?
+    private let executableURL = URL(fileURLWithPath: "Contents/Resources/lib/cwebp", isDirectory: false, relativeTo:  NSRunningApplication.current.bundleURL)
+    private let p = Process()
     
-    let standardErrorPipe = Pipe()
+    private let input: URL
+    private let output: URL
     
-    required init?(input: URL, output: URL, progressDelegate: ProgressDelegate? = nil) {
+    private let standardErrorPipe = Pipe()
+    
+    required init?(input: URL, output: URL) {
         guard let inputFilePathURL = (input as NSURL).filePathURL else {
             return nil
         }
@@ -34,10 +39,10 @@ class WebPProcess: JILProcess {
         
         self.input = input
         self.output = output
-        self.progressDelegate = progressDelegate
     }
     
-    func run(_ completion: @escaping () -> Void) {
+    func run() {
+        progressSubject.send(0.0)
 
         do {
             try Data().write(to: output)
@@ -63,11 +68,10 @@ class WebPProcess: JILProcess {
                 try outputHandle.close()
                 
                 DispatchQueue.main.sync {
-                    self.progressDelegate?.complete()
-                    completion()
+                    self.progressSubject.send(completion: .finished)
                 }
             } catch {
-                print("error!")
+                self.progressSubject.send(completion: .failure(error))
             }
         }
     }
@@ -87,29 +91,9 @@ class WebPProcess: JILProcess {
                 }
                 
                 DispatchQueue.main.sync {
-                    progressDelegate?.notifyWithProgress(Double(intValue) / 100.0)
+                    self.progressSubject.send(Double(intValue) / 100.0)
                 }
             }
         }
-    }
-}
-
-protocol ProgressDelegate {
-    var progress: Double { get set }
-    func notifyWithProgress(_ progress: Double)
-    func complete()
-}
-
-class PrintingProgressDelegate: ProgressDelegate {
-    var progress: Double = 0.0
-    
-    func complete() {
-        self.progress = 1.0
-        print("Complete!")
-    }
-    
-    func notifyWithProgress(_ progress: Double) {
-        self.progress = progress
-        print("Progress: \(progress)")
     }
 }

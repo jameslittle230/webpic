@@ -8,16 +8,40 @@
 
 import Foundation
 import AppKit
+import Combine
+
+enum JILImageState {
+    case unprocessed
+    case processed
+    case processing(Double)
+}
+
+extension JILImageState {
+    func eqState(other: JILImageState) -> Bool {
+        switch self {
+        case .processed:
+            if case .processed = other { return true }
+        case .unprocessed:
+            if case .unprocessed = other { return true }
+        case .processing(_):
+            if case .processing(_) = other { return true }
+        }
+        
+        return false
+    }
+    
+    static func ==(lhs: JILImageState, rhs: JILImageState) -> Bool {
+        return lhs.eqState(other: rhs)
+    }
+}
+
+enum ImageProcessError: Error {
+    case couldNotStartProcess
+}
 
 final class JILImage: Identifiable, ObservableObject {
     var id: String {
         return self.name
-    }
-    
-    enum JILImageState: CaseIterable {
-        case unuploaded
-        case uploaded
-        case uploading
     }
     
     let name: String
@@ -45,7 +69,7 @@ final class JILImage: Identifiable, ObservableObject {
     init?(fromUrl url: NSURL) {
         self.url = url
         self.name = url.lastPathComponent!
-        self.state = .unuploaded
+        self.state = .unprocessed
         
         guard let image = NSImage(contentsOf: url as URL) else {
             return nil
@@ -63,6 +87,42 @@ final class JILImage: Identifiable, ObservableObject {
             self.filesize = 0
         }
     }
+    
+    func process() -> AnyCancellable? {
+        self.state = .processing(0.0)
+        
+        guard let webP = WebPProcess(
+            input: url.filePathURL!,
+            output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("out2.webp")
+            ) else {
+                return nil
+        }
+        
+        guard let jpegTran = JPEGTranProcess(
+            input: url.filePathURL!,
+            output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("out2.jpeg")
+            ) else {
+                return nil
+        }
+        
+        let publisher = webP.progress.combineLatest(jpegTran.progress)
+            .map { tuple in
+                tuple.0 + tuple.1
+        }.eraseToAnyPublisher()
+        
+        let cancellable = publisher.sink(receiveCompletion: { (completion) in
+            self.state = .processed
+        }) { (progress) in
+            self.state = .processing(progress)
+        }
+        
+        
+        
+        webP.run()
+        jpegTran.run()
+        
+        return cancellable
+    }
 }
 
 protocol FakeData {
@@ -72,6 +132,10 @@ protocol FakeData {
 
 extension JILImage: FakeData {
     static func generate() -> JILImage {
-        return JILImage(name: "asdf.jpg", height: 250, width: 380, state: JILImageState.allCases.randomElement()!)
+        return JILImage(name: "asdf.jpg", height: 250, width: 380, state: [
+            .processed,
+            .unprocessed,
+            .processing(0.28)
+            ].randomElement()!)
     }
 }
