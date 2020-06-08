@@ -16,8 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         NotificationCenter.default.addObserver(forName: Notification.Name.NSFileHandleDataAvailable, object: self, queue: nil) { notification in
-            print(notification)
-            print(NSFileHandleNotificationDataItem)
+            return
         }
 
         // Create the window and set the content view. 

@@ -54,7 +54,7 @@ class JPEGTranProcess: JILProcess {
         do {
             try Data().write(to: output)
         } catch {
-            print("Couldn't write to output file")
+            return
         }
             
         DispatchQueue.global().async {
@@ -73,12 +73,7 @@ class JPEGTranProcess: JILProcess {
                 try self.p.run()
                 
                 self.standardErrorPipe.fileHandleForReading.readabilityHandler = { fileHandle in
-//                    let _ = fileHandle.availableData // Not doing anything with this now, but maybe later?
-                    let data = fileHandle.availableData
-                    let string = String(data: data, encoding: .ascii) ?? ""
-                    if string.count > 0 {
-                        print(string)
-                    }
+                    let _ = fileHandle.availableData // Not doing anything with this now, but maybe later?
                 }
                 
                 self.p.waitUntilExit()

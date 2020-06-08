@@ -76,10 +76,8 @@ struct WelcomeView: View {
         
         let _ = openPanel.runModal()
         for url in openPanel.urls {
-            let imagesAddedCount = imageManager.addFromUrl(url as NSURL)
-            print(imagesAddedCount)
+            let _ = imageManager.addFromUrl(url as NSURL)
         }
-        print(openPanel.urls)
     }
 }
 

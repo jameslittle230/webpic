@@ -54,7 +54,7 @@ class WebPProcess: JILProcess {
         do {
             try Data().write(to: output)
         } catch {
-            print("Couldn't write to output file")
+            return
         }
             
         DispatchQueue.global().async {
@@ -88,7 +88,6 @@ class WebPProcess: JILProcess {
             let lines = string.split(separator: "\n")
             
             for line in lines {
-                print(line)
                 let words = line.split(separator: " ")
                 
                 guard words.count > 3,
