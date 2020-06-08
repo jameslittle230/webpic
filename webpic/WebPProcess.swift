@@ -11,7 +11,6 @@ import Combine
 
 protocol JILProcess {
     var progress: AnyPublisher<Double, Error> { get }
-    init?(input: URL, output: URL)
     func run()
 }
 
@@ -29,13 +28,21 @@ class WebPProcess: JILProcess {
     
     private let standardErrorPipe = Pipe()
     
-    required init?(input: URL, output: URL) {
+    required init?(input: URL, output: URL, size: NSSize) {
         guard let inputFilePathURL = (input as NSURL).filePathURL else {
             return nil
         }
     
         p.executableURL = executableURL
-        p.arguments = ["-preset", "picture", "-progress", inputFilePathURL.path, "-o", "-"]
+        p.arguments = [
+            "-preset",
+            "picture",
+            "-progress",
+            "-mt",
+            "-resize", "\(Int(size.width))", "\(Int(size.height))",
+            inputFilePathURL.path,
+            "-o", "-"
+        ]
         
         self.input = input
         self.output = output
@@ -81,6 +88,7 @@ class WebPProcess: JILProcess {
             let lines = string.split(separator: "\n")
             
             for line in lines {
+                print(line)
                 let words = line.split(separator: " ")
                 
                 guard words.count > 3,

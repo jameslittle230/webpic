@@ -12,13 +12,22 @@ import Combine
 struct NavigationDetail: View {
     @EnvironmentObject var imageManager: ImageManager
     @ObservedObject var model: JILImage
+    @ObservedObject var optionsViewModel: ImageOptionsViewModel
     
     @State var uploadProgress = -1.0
     
     var body: some View {
         VStack {
             Button(action: {
-                if let cancellable = self.model.process(size: NSSize(width: 22, height: 44)) {
+                let size = CGSize(
+                    width: self.optionsViewModel.tempWidth,
+                    height: self.optionsViewModel.tempHeight
+                )
+                
+                if let cancellable = self.model.process(
+                    name: self.optionsViewModel.outputFilename,
+                    size: size
+                ) {
                     self.imageManager.cancellables.append(cancellable)
                 }
             }) {
@@ -28,7 +37,7 @@ struct NavigationDetail: View {
             GeometryReader { geometry in
                 HStack(alignment: .top, spacing: 18) {
                     ImagePreview(image: Image(nsImage: NSImage(contentsOf: self.model.url as URL)!))
-                    ImageOptions(model: self.model, viewModel: ImageOptionsViewModel(model: self.model)).frame(width: 300)
+                    ImageOptions(model: self.model, viewModel: self.optionsViewModel).frame(width: 300)
                 }
             }
             
@@ -47,7 +56,8 @@ struct NavigationDetail: View {
 
 struct NavigationDetail_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationDetail(model: JILImage.generate())
+        let model = JILImage.generate()
+        return NavigationDetail(model: model, optionsViewModel: ImageOptionsViewModel(model: model))
     }
 }
 

@@ -22,7 +22,7 @@ struct ImageOptions: View {
                 Spacer()
             }
             
-            Text("\(model.width) x \(model.height) • \(model.filesize.formatBytes())").font(.caption).foregroundColor(.secondary)
+            Text("\(model.width) × \(model.height) • \(model.filesize.formatBytes())").font(.caption).foregroundColor(.secondary)
             Text(self.model.url.path!.replacingOccurrences(of: "/Users/\(NSUserName())", with: "~")).font(.caption).foregroundColor(.secondary)
             Spacer().frame(height: 18.0)
             

@@ -9,6 +9,11 @@
 import AppKit
 import Combine
 
+fileprivate enum JPEGTranInput {
+    case url(URL)
+    case data(Data)
+}
+
 class JPEGTranProcess: JILProcess {
     var progress: AnyPublisher<Double, Error> {
         progressSubject.eraseToAnyPublisher()
@@ -18,7 +23,7 @@ class JPEGTranProcess: JILProcess {
     private let executableURL = URL(fileURLWithPath: "Contents/Resources/lib/jpegtran", isDirectory: false, relativeTo:  NSRunningApplication.current.bundleURL)
     private let p = Process()
     
-    private let input: URL
+    private let input: JPEGTranInput
     private let output: URL
     
     private let standardErrorPipe = Pipe()
@@ -31,7 +36,15 @@ class JPEGTranProcess: JILProcess {
         p.executableURL = executableURL
         p.arguments = ["-progressive", "-verbose", "-optimize", inputFilePathURL.path]
         
-        self.input = input
+        self.input = .url(input)
+        self.output = output
+    }
+    
+    required init?(data: Data, output: URL) {
+        p.executableURL = executableURL
+        p.arguments = ["-progressive", "-verbose", "-optimize"]
+        
+        self.input = .data(data)
         self.output = output
     }
     
@@ -48,12 +61,24 @@ class JPEGTranProcess: JILProcess {
             do {
                 let outputHandle = try FileHandle(forUpdating: self.output)
                 self.p.standardOutput = outputHandle
+//                self.p.standardOutput = self.standardErrorPipe
                 self.p.standardError = self.standardErrorPipe
+                
+                if case .data(let data) = self.input {
+                    let stdInPipe = Pipe()
+                    self.p.standardInput = stdInPipe
+                    stdInPipe.fileHandleForWriting.write(data)
+                }
                 
                 try self.p.run()
                 
                 self.standardErrorPipe.fileHandleForReading.readabilityHandler = { fileHandle in
-                    let _ = fileHandle.availableData // Not doing anything with this now, but maybe later?
+//                    let _ = fileHandle.availableData // Not doing anything with this now, but maybe later?
+                    let data = fileHandle.availableData
+                    let string = String(data: data, encoding: .ascii) ?? ""
+                    if string.count > 0 {
+                        print(string)
+                    }
                 }
                 
                 self.p.waitUntilExit()

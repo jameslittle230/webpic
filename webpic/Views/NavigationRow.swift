@@ -35,7 +35,7 @@ struct NavigationRow: View {
                     if(progressBarVisible) {
                         ProgressBar(progress: .constant(0.5), height: 6)
                     } else {
-                        Text("\(model.width) x \(model.height) • \(model.filesize.formatBytes())")
+                        Text("\(model.width) × \(model.height) • \(model.filesize.formatBytes())")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }

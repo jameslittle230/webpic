@@ -77,8 +77,12 @@ final class JILImage: Identifiable, ObservableObject {
         
         self.thumbnail = image.generateThumbnail(contentMode: .aspectFill, width: 50)
         
-        self.height = Int(image.size.height)
-        self.width = Int(image.size.width)
+        guard let rep = image.representations.first else {
+            return nil
+        }
+        
+        self.height = Int(rep.pixelsHigh)
+        self.width = Int(rep.pixelsWide)
         
         do {
             let attr = try FileManager.default.attributesOfItem(atPath: url.path!)
@@ -88,26 +92,40 @@ final class JILImage: Identifiable, ObservableObject {
         }
     }
     
-    func process(size: NSSize) -> AnyCancellable? {
+    func process(name: String, size: NSSize) -> AnyCancellable? {
         self.state = .processing(0.0)
-        
-        guard let toBeResized = NSImage(contentsOf: url as URL) else {
-            return nil
-        }
-        
-        let resized = toBeResized.resized(to: size)
         
         guard let webP = WebPProcess(
             input: url.filePathURL!,
-            output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("out2.webp")
+            output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("\(name).webp"),
+            size: size
             ) else {
                 return nil
         }
         
-        guard let jpegTran = JPEGTranProcess(
-            input: url.filePathURL!,
-            output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("out2.jpeg")
-            ) else {
+        guard let jpegTran: JPEGTranProcess = {
+            let output = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("\(name).jpg")
+            switch size == NSSize(width: self.width, height: self.height) {
+            case true:
+                return JPEGTranProcess(input: url.filePathURL!, output: output)
+            case false:
+                guard
+                    let toBeResized = NSImage(contentsOf: url as URL),
+                    let bits = toBeResized.resized(to: size)?.representations.first as? NSBitmapImageRep,
+                    let jpegBits = bits.representation(using: .jpeg, properties: [:])
+                else {
+                    return nil
+                }
+
+                do {
+                    let temp = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("temp.jpg")
+                    try jpegBits.write(to: temp)
+                    return JPEGTranProcess(input: temp, output: output)
+                } catch {
+                    return nil
+                }
+            }
+            }() else {
                 return nil
         }
         
@@ -118,6 +136,24 @@ final class JILImage: Identifiable, ObservableObject {
         
         let cancellable = publisher.sink(receiveCompletion: { (completion) in
             self.state = .processed
+            
+            retry(failableBlock: {
+                try FileManager.default.moveItem(
+                    at: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("\(name).jpg"),
+                    to: self.url.deletingLastPathComponent!.appendingPathComponent("\(name)-p.jpg"))
+                
+                try FileManager.default.moveItem(
+                    at: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("\(name).webp"),
+                    to: self.url.deletingLastPathComponent!.appendingPathComponent("\(name)-p.webp"))
+                
+                try FileManager.default.removeItem(at: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("temp.jpg"))
+            }, recoveryBlock: { _ in
+                let openPanel = NSOpenPanel()
+                openPanel.message = "Give Webpic permission to save the image somewhere."
+                openPanel.prompt = "Open"
+                openPanel.canChooseDirectories = true
+                let _ = openPanel.runModal()
+            })
         }) { (progress) in
             self.state = .processing(progress)
         }
