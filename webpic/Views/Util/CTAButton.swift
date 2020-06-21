@@ -19,6 +19,8 @@ struct CTAButton: View {
     @State private var hovered = false
 
     var text: String
+    var disabled = false
+    
     var body: some View {
         HStack {
             Spacer()
@@ -26,13 +28,9 @@ struct CTAButton: View {
             Spacer()
         }
         .background(LinearGradient(gradient: scrim, startPoint: .top, endPoint: .bottom))
-//        .background(hovered ? Color.accentColor : Color(NSColor.windowBackgroundColor))
         .clipShape(RoundedRectangle(cornerRadius: 5))
         .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(NSColor.tertiaryLabelColor), lineWidth: 0.5))
         .shadow(color: Color.black.opacity(0.2), radius: 0.4, x: 0, y: 0.6)
-        .onHover() { mouseover in
-            self.hovered = mouseover
-        }
     }
 }
 
@@ -45,7 +43,7 @@ struct CTAButton_Previews: PreviewProvider {
                     Text("Buy now")
                 }
             }.padding().background(Color(NSColor.windowBackgroundColor)).environment(\.colorScheme, .light)
-                
+
             HStack(spacing: 8.0) {
                 CTAButton(text: "Buy Now")
                 Button(action: {}) {

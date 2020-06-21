@@ -95,38 +95,9 @@ final class JILImage: Identifiable, ObservableObject {
     func process(name: String, size: NSSize) -> AnyCancellable? {
         self.state = .processing(0.0)
         
-        guard let webP = WebPProcess(
-            input: url.filePathURL!,
-            output: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("\(name).webp"),
-            size: size
-            ) else {
-                return nil
-        }
-        
-        guard let jpegTran: JPEGTranProcess = {
-            let output = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("\(name).jpg")
-            switch size == NSSize(width: self.width, height: self.height) {
-            case true:
-                return JPEGTranProcess(input: url.filePathURL!, output: output)
-            case false:
-                guard
-                    let toBeResized = NSImage(contentsOf: url as URL),
-                    let bits = toBeResized.resized(to: size)?.representations.first as? NSBitmapImageRep,
-                    let jpegBits = bits.representation(using: .jpeg, properties: [:])
-                else {
-                    return nil
-                }
-
-                do {
-                    let temp = URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("temp.jpg")
-                    try jpegBits.write(to: temp)
-                    return JPEGTranProcess(input: temp, output: output)
-                } catch {
-                    return nil
-                }
-            }
-            }() else {
-                return nil
+        guard let webP = WebPProcess(input: url.filePathURL!, size: size),
+            let jpegTran = JPEGTranProcess(input: url.filePathURL!, size: size) else {
+            return nil
         }
         
         let publisher = webP.progress.combineLatest(jpegTran.progress)
@@ -137,28 +108,25 @@ final class JILImage: Identifiable, ObservableObject {
         let cancellable = publisher.sink(receiveCompletion: { (completion) in
             self.state = .processed
             
-            retry(failableBlock: {
-                try FileManager.default.moveItem(
-                    at: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("\(name).jpg"),
-                    to: self.url.deletingLastPathComponent!.appendingPathComponent("\(name)-p.jpg"))
+            retry(.times(1), failableBlock: {
+                let jpegUrl = self.url.deletingLastPathComponent!.appendingPathComponent("\(name).jpg")
+                try jpegTran.data.write(to: jpegUrl, options: .atomicWrite)
                 
-                try FileManager.default.moveItem(
-                    at: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("\(name).webp"),
-                    to: self.url.deletingLastPathComponent!.appendingPathComponent("\(name)-p.webp"))
-                
-                try FileManager.default.removeItem(at: URL(fileURLWithPath: NSHomeDirectory()).appendingPathComponent("temp.jpg"))
+                let webPUrl = self.url.deletingLastPathComponent!.appendingPathComponent("\(name).webp")
+                try webP.data?.write(to: webPUrl, options: .atomicWrite)
             }, recoveryBlock: { _ in
                 let openPanel = NSOpenPanel()
                 openPanel.message = "Give Webpic permission to save the image somewhere."
                 openPanel.prompt = "Open"
+                openPanel.directoryURL = self.url.deletingLastPathComponent!
                 openPanel.canChooseDirectories = true
                 let _ = openPanel.runModal()
             })
+
+            
         }) { (progress) in
             self.state = .processing(progress)
         }
-        
-        
         
         webP.run()
         jpegTran.run()
@@ -170,7 +138,6 @@ final class JILImage: Identifiable, ObservableObject {
 protocol FakeData {
     static func generate() -> Self
 }
-    
 
 extension JILImage: FakeData {
     static func generate() -> JILImage {

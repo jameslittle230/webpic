@@ -9,78 +9,75 @@
 import AppKit
 import Combine
 
-fileprivate enum JPEGTranInput {
-    case url(URL)
-    case data(Data)
-}
-
 class JPEGTranProcess: JILProcess {
     var progress: AnyPublisher<Double, Error> {
         progressSubject.eraseToAnyPublisher()
     }
+    
+    var data: Data {
+        return internalData
+    }
+    
+    // MARK: - Internal Variables
+    
+    private var internalData = Data()
+    
     private var progressSubject = PassthroughSubject<Double, Error>()
     
     private let executableURL = URL(fileURLWithPath: "Contents/Resources/lib/jpegtran", isDirectory: false, relativeTo:  NSRunningApplication.current.bundleURL)
+    
     private let p = Process()
     
-    private let input: JPEGTranInput
-    private let output: URL
+    private let input: URL
+    private let tempfile: TempFile
     
+    private let standardOutputPipe = Pipe()
     private let standardErrorPipe = Pipe()
     
-    required init?(input: URL, output: URL) {
-        guard let inputFilePathURL = (input as NSURL).filePathURL else {
-            return nil
+    // MARK: - Initializers
+    
+    required init?(input: URL, size: NSSize) {
+//        guard let inputFilePathURL = (input as NSURL).filePathURL else {
+//            return nil
+//        }
+
+        guard let toBeResized = NSImage(contentsOf: input),
+            let bits = toBeResized.resized(to: size)?.representations.first as? NSBitmapImageRep,
+            let jpegBits = bits.representation(using: .jpeg, properties: [:]) else {
+                return nil
         }
+
+        tempfile = TempFile(data: jpegBits)
     
         p.executableURL = executableURL
-        p.arguments = ["-progressive", "-verbose", "-optimize", inputFilePathURL.path]
-        
-        self.input = .url(input)
-        self.output = output
+        p.arguments = ["-progressive", "-verbose", "-optimize", tempfile.url.path]
+        self.input = input
     }
     
-    required init?(data: Data, output: URL) {
-        p.executableURL = executableURL
-        p.arguments = ["-progressive", "-verbose", "-optimize"]
-        
-        self.input = .data(data)
-        self.output = output
-    }
+    // MARK: - Public Methods
     
     func run() {
         progressSubject.send(0.0)
-
-        do {
-            try Data().write(to: output)
-        } catch {
-            return
-        }
             
         DispatchQueue.global().async {
             do {
-                let outputHandle = try FileHandle(forUpdating: self.output)
-                self.p.standardOutput = outputHandle
-//                self.p.standardOutput = self.standardErrorPipe
+                self.p.standardOutput = self.standardOutputPipe
                 self.p.standardError = self.standardErrorPipe
                 
-                if case .data(let data) = self.input {
-                    let stdInPipe = Pipe()
-                    self.p.standardInput = stdInPipe
-                    stdInPipe.fileHandleForWriting.write(data)
-                }
-                
                 try self.p.run()
-                
+            
                 self.standardErrorPipe.fileHandleForReading.readabilityHandler = { fileHandle in
                     let _ = fileHandle.availableData // Not doing anything with this now, but maybe later?
                 }
                 
+                self.internalData.append(try (self.standardOutputPipe.fileHandleForReading.readToEnd() ?? Data()))
+                
                 self.p.waitUntilExit()
                 self.standardErrorPipe.fileHandleForReading.readabilityHandler = nil
-                try outputHandle.close()
+                self.standardOutputPipe.fileHandleForReading.readabilityHandler = nil
                 
                 DispatchQueue.main.sync {
+                    self.tempfile.destroy()
                     self.progressSubject.send(completion: .finished)
                 }
             } catch {

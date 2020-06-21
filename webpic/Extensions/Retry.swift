@@ -8,11 +8,28 @@
 
 import Foundation
 
-func retry(failableBlock: () throws -> Void , recoveryBlock: (Error) -> Void) {
+enum RetryType {
+    case times(Int)
+    case infinite
+}
+
+func retry(_ type: RetryType, failableBlock: () throws -> Void , recoveryBlock: (Error) -> Void) {
+    if case let .times(remaining) = type {
+        if remaining == 0 {
+            return
+        }
+    }
+    
     do {
         try failableBlock()
     } catch {
         recoveryBlock(error)
-        retry(failableBlock: failableBlock, recoveryBlock: recoveryBlock)
+        let newType: RetryType = {
+            switch type {
+            case .infinite: return .infinite
+            case let .times(count): return .times(count - 1)
+            }
+        }()
+        retry(newType, failableBlock: failableBlock, recoveryBlock: recoveryBlock)
     }
 }

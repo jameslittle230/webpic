@@ -73,7 +73,7 @@ class ImageOptionsViewModel: ObservableObject {
         
         var fileNameComponents = model.name.split(separator: ".")
         _ = fileNameComponents.popLast()
-        outputFilename = fileNameComponents.joined(separator: ".")
+        outputFilename = fileNameComponents.joined(separator: ".").appending("-p")
     }
     
     enum LastEditedImageDimension {

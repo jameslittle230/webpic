@@ -18,17 +18,28 @@ class WebPProcess: JILProcess {
     var progress: AnyPublisher<Double, Error> {
         progressSubject.eraseToAnyPublisher()
     }
+    
+    var data: Data? {
+        return internalData
+    }
+    
+    // MARK: - Internal Variables
+    
+    private var internalData: Data = Data()
+    
     private var progressSubject = PassthroughSubject<Double, Error>()
     
     private let executableURL = URL(fileURLWithPath: "Contents/Resources/lib/cwebp", isDirectory: false, relativeTo:  NSRunningApplication.current.bundleURL)
     private let p = Process()
     
-    let input: URL
-    let output: URL
+    private let input: URL
     
+    private let standardOutputPipe = Pipe()
     private let standardErrorPipe = Pipe()
     
-    required init?(input: URL, output: URL, size: NSSize) {
+    // MARK: - Initializers
+    
+    required init?(input: URL, size: NSSize) {
         guard let inputFilePathURL = (input as NSURL).filePathURL else {
             return nil
         }
@@ -45,22 +56,14 @@ class WebPProcess: JILProcess {
         ]
         
         self.input = input
-        self.output = output
     }
     
     func run() {
         progressSubject.send(0.0)
-
-        do {
-            try Data().write(to: output)
-        } catch {
-            return
-        }
             
         DispatchQueue.global().async {
             do {
-                let outputHandle = try FileHandle(forUpdating: self.output)
-                self.p.standardOutput = outputHandle
+                self.p.standardOutput = self.standardOutputPipe
                 self.p.standardError = self.standardErrorPipe
                 
                 try self.p.run()
@@ -70,9 +73,11 @@ class WebPProcess: JILProcess {
                     self.processIncomingStandardErrorData(data)
                 }
                 
+                self.internalData.append(try (self.standardOutputPipe.fileHandleForReading.readToEnd() ?? Data()))
+                
                 self.p.waitUntilExit()
                 self.standardErrorPipe.fileHandleForReading.readabilityHandler = nil
-                try outputHandle.close()
+                self.standardOutputPipe.fileHandleForReading.readabilityHandler = nil
                 
                 DispatchQueue.main.sync {
                     self.progressSubject.send(completion: .finished)

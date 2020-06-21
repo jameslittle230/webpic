@@ -13,12 +13,33 @@ struct NavigationDetail: View {
     @EnvironmentObject var imageManager: ImageManager
     @ObservedObject var model: JILImage
     @ObservedObject var optionsViewModel: ImageOptionsViewModel
-    
-    @State var uploadProgress = -1.0
+
+    var progressBar: ProgressBar? {
+        if case let .processing(progress) = model.state {
+            return ProgressBar(progress: .constant(progress))
+        } else {
+            return nil
+        }
+    }
+
+    var ctaButton: CTAButton {
+        switch model.state {
+        case .unprocessed:
+            return CTAButton(text: "Process")
+        case .processing(_):
+            return CTAButton(text: "Processing", disabled: true)
+        case .processed:
+            return CTAButton(text: "Process Again")
+        }
+    }
     
     var body: some View {
         VStack {
             Button(action: {
+                if case .processing(_) = self.model.state {
+                    return
+                }
+
                 let size = CGSize(
                     width: self.optionsViewModel.tempWidth,
                     height: self.optionsViewModel.tempHeight
@@ -27,11 +48,11 @@ struct NavigationDetail: View {
                 if let cancellable = self.model.process(
                     name: self.optionsViewModel.outputFilename,
                     size: size
-                ) {
+                    ) {
                     self.imageManager.cancellables.append(cancellable)
                 }
             }) {
-                CTAButton(text: model.state == .processed ? "Process Again" : "Process")
+                ctaButton
             }.buttonStyle(PlainButtonStyle())
             
             GeometryReader { geometry in
@@ -46,10 +67,9 @@ struct NavigationDetail: View {
             if model.state == .processed {
                 PostUploadInfo(model: model)
             }
-            
-            if uploadProgress != -1.0 {
-                ProgressBar(progress: .constant(0.5))
-            }
+
+            progressBar
+
         }.padding(18.0).frame(minWidth: 400, minHeight: 400)
     }
 }
