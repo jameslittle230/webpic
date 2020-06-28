@@ -13,7 +13,6 @@ struct Main: View {
     @State var dropActive: Bool = false
     @State var selectedView: String? = nil
     
-    
     var body: some View {
         let sidebarDropDelegate = SidebarDropDelegate(
             imageManager: imageManager,
@@ -26,32 +25,44 @@ struct Main: View {
             active: $dropActive,
             selectedView: $selectedView
         )
+
+        func navigationRow(forImage image: JILImage) -> some View {
+            let detailView = NavigationDetail(
+                model: image,
+                optionsViewModel: ImageOptions(model: image)
+            )
+
+            let destination = detailView
+                .environmentObject(self.imageManager)
+                .onDrop(of: detailDropDelegate.allowedUTIs, delegate: detailDropDelegate)
+
+            return NavigationLink(
+                destination: destination,
+                tag: image.name,
+                selection: self.$selectedView
+            ) {
+                NavigationRow(model: image)
+            }
+        }
         
         return NavigationView() {
             VStack {
-                List(imageManager
-                    .images) { image in
-                        NavigationLink(destination: NavigationDetail(model: image, optionsViewModel: ImageOptions(model: image))
-                            .environmentObject(self.imageManager)
-                            .onDrop(
-                                of: detailDropDelegate.allowedUTIs,
-                                delegate: detailDropDelegate),
-                                       tag: image.name,
-                                       selection: self.$selectedView) {
-                                        NavigationRow(model: image)
-                        }
+                List(imageManager.images.sorted { $0.name < $1.name }) { image in
+                    navigationRow(forImage: image)
                 }.listStyle(SidebarListStyle()).frame(minWidth: 320)
                 Spacer()
                 ListActions().environmentObject(imageManager)
             }
-                .onDrop(of: sidebarDropDelegate.allowedUTIs, delegate: sidebarDropDelegate)
-                .background(self.dropActive ? DropGradientBackground() : nil)
+            .onDrop(of: sidebarDropDelegate.allowedUTIs, delegate: sidebarDropDelegate)
+            .background(self.dropActive ? DropGradientBackground() : nil)
             .popover(isPresented: .constant(false)) {
                 Text("this should never happen")
             }
+
             WelcomeView()
             .environmentObject(imageManager)
             .onDrop(of: detailDropDelegate.allowedUTIs, delegate: detailDropDelegate)
+            
         }.navigationViewStyle(DoubleColumnNavigationViewStyle())
             .onAppear() {
                  
