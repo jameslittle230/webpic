@@ -1,5 +1,5 @@
 //
-//  JPEGProcess.swift
+//  JPEGConverter.swift
 //  webpic
 //
 //  Created by James Little on 3/29/20.
@@ -11,7 +11,7 @@ import Combine
 
 struct JPEGTranError: Error {}
 
-class JPEGProcess: Converter {
+class JPEGConverter: Converter {
     var progress: AnyPublisher<Double, Error> {
         progressSubject.eraseToAnyPublisher()
     }

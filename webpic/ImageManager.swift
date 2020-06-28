@@ -54,7 +54,7 @@ class ImageManager: ObservableObject {
     
     func bulkProcess() {
         guard let first = images.first else { return }
-        let options = ImageOptionsViewModel(model: first) // TODO: Load options from userdefaults instead
+        let options = ImageOptions(model: first) // TODO: Load options from userdefaults instead
         for image in images {
             if let cancellable = image.process(withOptions: options) {
                 self.cancellables.append(cancellable)

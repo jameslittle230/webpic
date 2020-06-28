@@ -31,7 +31,7 @@ struct Main: View {
             VStack {
                 List(imageManager
                     .images) { image in
-                        NavigationLink(destination: NavigationDetail(model: image, optionsViewModel: ImageOptionsViewModel(model: image))
+                        NavigationLink(destination: NavigationDetail(model: image, optionsViewModel: ImageOptions(model: image))
                             .environmentObject(self.imageManager)
                             .onDrop(
                                 of: detailDropDelegate.allowedUTIs,

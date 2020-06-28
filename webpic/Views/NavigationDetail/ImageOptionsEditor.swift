@@ -8,9 +8,9 @@
 
 import SwiftUI
 
-struct ImageOptions: View {
+struct ImageOptionsEditor: View {
     @ObservedObject var model: JILImage
-    @ObservedObject var viewModel: ImageOptionsViewModel
+    @ObservedObject var viewModel: ImageOptions
     
     var body: some View {
         VStack(alignment: .leading) {

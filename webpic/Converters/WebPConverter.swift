@@ -9,13 +9,7 @@
 import AppKit
 import Combine
 
-protocol Converter {
-    var progress: AnyPublisher<Double, Error> { get }
-    var data: Data? { get }
-    func run()
-}
-
-class WebPProcess: Converter {
+class WebPConverter: Converter {
     var progress: AnyPublisher<Double, Error> {
         progressSubject.eraseToAnyPublisher()
     }

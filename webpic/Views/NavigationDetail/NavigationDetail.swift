@@ -12,7 +12,7 @@ import Combine
 struct NavigationDetail: View {
     @EnvironmentObject var imageManager: ImageManager
     @ObservedObject var model: JILImage
-    @ObservedObject var optionsViewModel: ImageOptionsViewModel
+    @ObservedObject var optionsViewModel: ImageOptions
 
     var progressBar: ProgressBar? {
         if case let .processing(progress) = model.state {
@@ -50,7 +50,7 @@ struct NavigationDetail: View {
             GeometryReader { geometry in
                 HStack(alignment: .top, spacing: 18) {
                     ImagePreview(image: Image(nsImage: NSImage(contentsOf: self.model.url as URL)!))
-                    ImageOptions(model: self.model, viewModel: self.optionsViewModel).frame(width: 300)
+                    ImageOptionsEditor(model: self.model, viewModel: self.optionsViewModel).frame(width: 300)
                 }
             }
             
@@ -69,7 +69,7 @@ struct NavigationDetail: View {
 struct NavigationDetail_Previews: PreviewProvider {
     static var previews: some View {
         let model = JILImage.generate()
-        return NavigationDetail(model: model, optionsViewModel: ImageOptionsViewModel(model: model))
+        return NavigationDetail(model: model, optionsViewModel: ImageOptions(model: model))
     }
 }
 

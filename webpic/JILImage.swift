@@ -81,21 +81,21 @@ final class JILImage: Identifiable, ObservableObject {
 
     // MARK: - Public methods
     
-    func process(withOptions options: ImageOptionsViewModel) -> AnyCancellable? {
+    func process(withOptions options: ImageOptions) -> AnyCancellable? {
         self.state = .processing(0.0)
         var converters: [Converter] = []
         let size = NSSize(width: options.tempWidth, height: options.tempHeight)
 
         if(options.convertToWebP) {
-            converters.append(WebPProcess(input: url.filePathURL!, size: size)!)
+            converters.append(WebPConverter(input: url.filePathURL!, size: size)!)
         }
 
         if(imageType == .jpeg && options.convertToPJpeg) {
-            converters.append(JPEGProcess(input: url.filePathURL!, size: size)!)
+            converters.append(JPEGConverter(input: url.filePathURL!, size: size)!)
         }
 
         if(imageType == .png && options.compressPNG) {
-            converters.append(PNGProcess(input: url.filePathURL!, size: size)!)
+            converters.append(PNGConverger(input: url.filePathURL!, size: size)!)
         }
         
 //        let publisher = webP.progress.combineLatest(jpegTran.progress)

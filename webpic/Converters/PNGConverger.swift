@@ -1,5 +1,5 @@
 //
-//  PNGProcess.swift
+//  PNGConverger.swift
 //  webpic
 //
 //  Created by James Little on 6/27/20.
@@ -11,7 +11,7 @@ import Combine
 
 struct PNGError: Error {}
 
-class PNGProcess: Converter {
+class PNGConverger: Converter {
     var progress: AnyPublisher<Double, Error> {
         progressSubject.eraseToAnyPublisher()
     }

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class ImageOptionsViewModel: ObservableObject {
+class ImageOptions: ObservableObject {
     static let tempWidthDefaultsKey = "imageoptionsviewmodel.tempwidth"
     static let tempHeightDefaultsKey = "imageoptionsviewmodel.tempheight"
     let model: JILImage
@@ -16,8 +16,8 @@ class ImageOptionsViewModel: ObservableObject {
     init(model: JILImage) {
         self.model = model
 
-        let savedWidth = UserDefaults.standard.integer(forKey: ImageOptionsViewModel.tempWidthDefaultsKey)
-        let savedHeight = UserDefaults.standard.integer(forKey: ImageOptionsViewModel.tempHeightDefaultsKey)
+        let savedWidth = UserDefaults.standard.integer(forKey: ImageOptions.tempWidthDefaultsKey)
+        let savedHeight = UserDefaults.standard.integer(forKey: ImageOptions.tempHeightDefaultsKey)
         self.tempWidth = savedWidth != 0 ? savedWidth : model.width
         self.tempHeight = savedHeight != 0 ? savedHeight : model.height
 
