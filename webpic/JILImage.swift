@@ -20,8 +20,9 @@ final class JILImage: Identifiable, ObservableObject {
     let width: Int
     let filesize: UInt64
     let imageType: JILImageType
-    var thumbnail: NSImage? = nil
-    
+
+    @Published var thumbnail: NSImage? = nil
+    @Published var preview: NSImage? = nil
     @Published var state: JILImageState
     
     var aspectRatio: Double {
@@ -55,8 +56,6 @@ final class JILImage: Identifiable, ObservableObject {
 
         self.imageType = tempImageType
         
-        self.thumbnail = image.generateThumbnail(contentMode: .aspectFill, width: 50)
-        
         self.height = Int(rep.pixelsHigh)
         self.width = Int(rep.pixelsWide)
         
@@ -65,6 +64,16 @@ final class JILImage: Identifiable, ObservableObject {
             self.filesize = attr[FileAttributeKey.size] as! UInt64
         } catch {
             self.filesize = 0
+        }
+
+        DispatchQueue.global(qos: .background).async {
+            let thumbnail = image.generateThumbnail(contentMode: .aspectFill, width: 50)
+            let preview = image.generateThumbnail(contentMode: .aspectFit, width: 800)
+
+            DispatchQueue.main.async {
+                self.thumbnail = thumbnail
+                self.preview = preview
+            }
         }
     }
 

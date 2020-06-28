@@ -30,8 +30,17 @@ struct ImageOptionsEditor: View {
                 Toggle(isOn: $viewModel.convertToWebP) {
                     Text("Convert to WebP")
                 }
-                Toggle(isOn: $viewModel.convertToPJpeg) {
-                    Text("Convert to Progressive JPEG")
+
+                if(model.imageType == .png) {
+                    Toggle(isOn: $viewModel.compressPNG) {
+                        Text("Convert to compressed PNG")
+                    }
+                }
+
+                if(model.imageType == .jpeg) {
+                    Toggle(isOn: $viewModel.convertToPJpeg) {
+                        Text("Convert to Progressive JPEG")
+                    }
                 }
 //                Toggle(isOn: $viewModel.saveToDisk) {
 //                    Text("Strip EXIF data")
@@ -42,10 +51,14 @@ struct ImageOptionsEditor: View {
                 Toggle(isOn: $viewModel.saveToDisk) {
                     Text("Save to Disk")
                 }
+
+                Toggle(isOn: $viewModel.saveToNewFolder) {
+                    Text("Save to New Folder")
+                }
                 Spacer().frame(height: 36.0)
                 HStack {
                     Text("Output Filename")
-                    TextField("asdf", text: $viewModel.outputFilename)
+                    TextField("DSC001.jpg", text: $viewModel.outputFilename)
                 }
                 
                 HStack {

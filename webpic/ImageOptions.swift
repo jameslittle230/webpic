@@ -66,4 +66,5 @@ class ImageOptions: ObservableObject {
     @Published var compressPNG = true
     @Published var uploadToServer = false
     @Published var saveToDisk = true
+    @Published var saveToNewFolder = true
 }

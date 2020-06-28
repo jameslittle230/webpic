@@ -32,6 +32,14 @@ struct NavigationDetail: View {
             return CTAButton(text: "Process Again")
         }
     }
+
+    var preview: Image {
+        if let modelPreview = model.preview {
+            return Image(nsImage: modelPreview)
+        }
+
+        return Image("sample")
+    }
     
     var body: some View {
         VStack {
@@ -49,7 +57,7 @@ struct NavigationDetail: View {
             
             GeometryReader { geometry in
                 HStack(alignment: .top, spacing: 18) {
-                    ImagePreview(image: Image(nsImage: NSImage(contentsOf: self.model.url as URL)!))
+                    ImagePreview(image: preview)
                     ImageOptionsEditor(model: self.model, viewModel: self.optionsViewModel).frame(width: 300)
                 }
             }

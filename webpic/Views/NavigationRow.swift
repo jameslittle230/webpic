@@ -14,15 +14,26 @@ struct NavigationRow: View {
     var progressBarVisible: Bool {
         return model.state == .processing(0)
     }
+
+    var thumbnail: Image {
+        if let thumbnail = self.model.thumbnail {
+            return Image(nsImage: thumbnail)
+        } else {
+            if #available(OSX 10.16, *) {
+                return Image(systemName: "")
+            } else {
+                return Image("sample")
+            }
+        }
+    }
     
     var body: some View {
         HStack {
-            Image(nsImage: self.model.thumbnail!)
-                .resizable()
+            thumbnail.resizable()
                 .scaledToFill()
                 .frame(width: 40, height: 40)
                 .clipped()
-            
+
             VStack(alignment: .leading, spacing: progressBarVisible ? 3.0 : 0.0) {
                 HStack() {
                     Text(model.name).font(.callout).bold()
