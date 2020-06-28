@@ -9,12 +9,13 @@
 import AppKit
 import Combine
 
-protocol JILProcess {
+protocol Converter {
     var progress: AnyPublisher<Double, Error> { get }
+    var data: Data? { get }
     func run()
 }
 
-class WebPProcess: JILProcess {
+class WebPProcess: Converter {
     var progress: AnyPublisher<Double, Error> {
         progressSubject.eraseToAnyPublisher()
     }
@@ -73,7 +74,11 @@ class WebPProcess: JILProcess {
                     self.processIncomingStandardErrorData(data)
                 }
                 
-                self.internalData.append(try (self.standardOutputPipe.fileHandleForReading.readToEnd() ?? Data()))
+                if #available(OSX 10.15.4, *) {
+                    self.internalData.append(try (self.standardOutputPipe.fileHandleForReading.readToEnd() ?? Data()))
+                } else {
+                    // Fallback on earlier versions
+                }
                 
                 self.p.waitUntilExit()
                 self.standardErrorPipe.fileHandleForReading.readabilityHandler = nil

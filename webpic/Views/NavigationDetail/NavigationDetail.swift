@@ -39,16 +39,8 @@ struct NavigationDetail: View {
                 if case .processing(_) = self.model.state {
                     return
                 }
-
-                let size = CGSize(
-                    width: self.optionsViewModel.tempWidth,
-                    height: self.optionsViewModel.tempHeight
-                )
                 
-                if let cancellable = self.model.process(
-                    name: self.optionsViewModel.outputFilename,
-                    size: size
-                    ) {
+                if let cancellable = self.model.process(withOptions: self.optionsViewModel) {
                     self.imageManager.cancellables.append(cancellable)
                 }
             }) {
